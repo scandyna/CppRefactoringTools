@@ -1,5 +1,9 @@
 # Questions about C++ refactoring
 
+[[_TOC_]]
+
+# Introduction
+
 ## Initial project
 
 This could be the initial project.
@@ -130,4 +134,42 @@ TEST_CASE("SomeTest")
 {
   Connector connector = ...
 }
+```
+
+# Concepts
+
+## ClassName
+
+## ClassFileName
+
+## TestName
+
+## Namespace
+
+## IncludeGuard
+
+## HeaderFile
+
+## SourceFile
+
+## FileSystemStructure
+
+# Use cases
+
+## Create a class
+
+The user provides a class name.
+
+The source file names are proposed,
+based on the class name:
+- ClassName.h
+- ClassName.cpp
+
+A test name is also proposed:
+- ClassNameTest.cpp
+
+Optionaly, the class can be in a namespace.
+The user can provide a namespace:
+```
+Mdt::ElectricalConnectorLibrary
 ```
