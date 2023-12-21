@@ -20,8 +20,8 @@ tests
 /*
  * Some header comment
  */
-#ifndef MDT_ELECTRICAL_CONNECTOR_H
-#define MDT_ELECTRICAL_CONNECTOR_H
+#ifndef ELECTRICAL_CONNECTOR_H
+#define ELECTRICAL_CONNECTOR_H
 
 #include "ElectricalConnectorContact.h"
 
@@ -34,7 +34,7 @@ class ElectricalConnector
   ElectricalConnector() noexcept;
 };
 
-#endif // #ifndef MDT_ELECTRICAL_CONNECTOR_H
+#endif // #ifndef ELECTRICAL_CONNECTOR_H
 ```
 
 `ElectricalConnector.cpp`:
@@ -45,7 +45,7 @@ class ElectricalConnector
  */
 #include "ElectricalConnector.h"
 
-ElectricalConnector::ElectricalConnector()
+ElectricalConnector::ElectricalConnector() noexcept
 {
 }
 ```
@@ -61,11 +61,10 @@ We rename a class, put it to a namespace.
 libs
  |-Mdt
     |-ElectricalConnectorLibrary
-         |
-        src
-         |-ConnectorContact.h
-         |-Connector.h
-         |-Connector.cpp
+         |-src
+         |  |-ConnectorContact.h
+         |  |-Connector.h
+         |  |-Connector.cpp
         tests
          |-src
             |-ConnectorTest.cpp
@@ -109,7 +108,7 @@ namespace Mdt{ namespace ElectricalConnectorLibrary{
 
 namespace Mdt{ namespace ElectricalConnectorLibrary{
 
-Connector::Connector()
+Connector::Connector() noexcept
 {
 }
 
