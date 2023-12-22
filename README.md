@@ -136,6 +136,12 @@ TEST_CASE("SomeTest")
 }
 ```
 
+# Status
+
+Creating a class would be the first thing to implement.
+
+Editing CMakeLists.txt is currently not planned.
+
 # Concepts
 
 ## ClassName
@@ -154,7 +160,13 @@ TEST_CASE("SomeTest")
 
 ## FileSystemStructure
 
+## UsageConanFile
+
+## DeployConanFile
+
 # Use cases
+
+## Create a blank project
 
 ## Create a class
 
@@ -173,3 +185,5 @@ The user can provide a namespace:
 ```
 Mdt::ElectricalConnectorLibrary
 ```
+
+#TODO: the test should also include the class and define using namespace x::y;
