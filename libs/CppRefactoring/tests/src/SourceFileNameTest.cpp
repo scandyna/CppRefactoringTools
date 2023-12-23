@@ -7,4 +7,18 @@
  ** Copyright (C) 2023-2023 Philippe Steinmann.
  **
  *****************************************************************************************/
-#include "CreateClass.h"
+#include "catch2/catch.hpp"
+#include "Catch2QString.h"
+#include "Mdt/CppRefactoring/SourceFileName.h"
+
+using namespace Mdt::CppRefactoring;
+
+
+TEST_CASE("fromClassName")
+{
+  auto className = ClassName::fromString("MyClass");
+
+  auto fileName = SourceFileName::fromClassName(className);
+
+  REQUIRE( fileName.toString() == "MyClass.cpp" );
+}

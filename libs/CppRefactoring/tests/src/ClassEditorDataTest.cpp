@@ -7,10 +7,14 @@
  ** Copyright (C) 2023-2023 Philippe Steinmann.
  **
  *****************************************************************************************/
-#include "CreateClassDialog.h"
+#include "catch2/catch.hpp"
+#include "Catch2QString.h"
+#include "Mdt/CppRefactoring/ClassEditorData.h"
 
-CreateClassDialog::CreateClassDialog(QWidget* parent) noexcept
- : QDialog(parent)
+using namespace Mdt::CppRefactoring;
+
+
+TEST_CASE("TestsMissing")
 {
-  mUi.setupUi(this);
+  REQUIRE(false);
 }

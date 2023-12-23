@@ -144,11 +144,22 @@ Editing CMakeLists.txt is currently not planned.
 
 # Concepts
 
+## Class
+
+Regroups all attributes required to create or rename a class.
+
 ## ClassName
 
-## ClassFileName
+The name of the class.
+Will be used for ither attributes.
+
+## ClassHeaderFileName
+
+## ClassSourceFileName
 
 ## TestName
+
+## TestSourceFileName
 
 ## Namespace
 
@@ -159,6 +170,7 @@ Editing CMakeLists.txt is currently not planned.
 ## SourceFile
 
 ## FileSystemStructure
+
 
 ## UsageConanFile
 

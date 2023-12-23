@@ -10,6 +10,8 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+#include "CreateClassEditor.h"
+#include "Mdt/CppRefactoring/Class.h"
 #include "ui_MainWindow.h"
 #include <QMainWindow>
 
@@ -26,8 +28,15 @@ class MainWindow : public QMainWindow
   explicit
   MainWindow(QWidget *parent = nullptr) noexcept;
 
+ public slots:
+
+  void updateEditorUi(const Mdt::CppRefactoring::Class & c) noexcept;
+
  private:
 
+  void setupEditorUi() noexcept;
+
+  CreateClassEditor mEditor;
   Ui::MainWindow mUi;
 };
 

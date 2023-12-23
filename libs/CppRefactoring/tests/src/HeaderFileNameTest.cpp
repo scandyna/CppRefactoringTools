@@ -7,8 +7,18 @@
  ** Copyright (C) 2023-2023 Philippe Steinmann.
  **
  *****************************************************************************************/
-#ifndef CREATE_CLASS_H
-#define CREATE_CLASS_H
+#include "catch2/catch.hpp"
+#include "Catch2QString.h"
+#include "Mdt/CppRefactoring/HeaderFileName.h"
+
+using namespace Mdt::CppRefactoring;
 
 
-#endif // #ifndef CREATE_CLASS_H
+TEST_CASE("fromClassName")
+{
+  auto className = ClassName::fromString("MyClass");
+
+  auto fileName = HeaderFileName::fromClassName(className);
+
+  REQUIRE( fileName.toString() == "MyClass.h" );
+}

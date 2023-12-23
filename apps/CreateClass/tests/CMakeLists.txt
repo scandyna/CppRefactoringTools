@@ -4,10 +4,10 @@
 include(MdtAddTest)
 
 
-# mdt_add_test(
-#   NAME CLE_ConnectorListViewTableModelTest
-#   TARGET cle_ConnectorListViewTableModelTest
-#   DEPENDENCIES Mdt::CableListEditor Mdt::Catch2Main Mdt::Catch2Qt
-#   SOURCE_FILES
-#     src/ConnectorListViewTableModelTest.cpp
-# )
+mdt_add_test(
+  NAME CL_CreateClassEditorTest
+  TARGET cle_CreateClassEditorTest
+  DEPENDENCIES Mdt::CreateClass Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/CreateClassEditorTest.cpp
+)

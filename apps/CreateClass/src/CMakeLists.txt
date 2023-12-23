@@ -2,7 +2,7 @@
 # file Copyright.txt or https://cmake.org/licensing for details.
 
 add_library(CreateClass STATIC
-  CreateClass.cpp
+  CreateClassEditor.cpp
 )
 add_library(Mdt::CreateClass ALIAS CreateClass)
 
@@ -29,7 +29,7 @@ target_include_directories(CreateClass
 
 target_link_libraries(CreateClass
   PUBLIC
-#     Mdt::RailwayCableList
+    Mdt::CppRefactoring
 #     Mdt::Numeric
 #     Mdt::ItemModel
 )
