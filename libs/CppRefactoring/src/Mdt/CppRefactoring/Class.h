@@ -14,6 +14,9 @@
 #include "Mdt/CppRefactoring/Namespace.h"
 #include "Mdt/CppRefactoring/HeaderFileName.h"
 #include "Mdt/CppRefactoring/SourceFileName.h"
+#include "Mdt/CppRefactoring/TestSourceFileName.h"
+#include "Mdt/CppRefactoring/TopCommentBloc.h"
+#include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
@@ -39,11 +42,19 @@ namespace Mdt{ namespace CppRefactoring{
      */
     bool isInNamespace() const noexcept
     {
+      return mNamespace.has_value();
     }
 
     /*! \brief Put this class into a namespace
      */
     void setNamespace(const Namespace & ns) noexcept;
+
+    /*! \brief Get the namespace this class is in
+     *
+     * \pre this class must be in a namespace
+     * \sa isInNamespace()
+     */
+    const Namespace & ns() const noexcept;
 
     /*! \brief Get the header file name
      */
@@ -57,6 +68,24 @@ namespace Mdt{ namespace CppRefactoring{
     const SourceFileName & sourceFileName() const noexcept
     {
       return mSourceFileName;
+    }
+
+    /*! \brief Get the test source file name
+     */
+    const TestSourceFileName & testSourceFileName() const noexcept
+    {
+      return mTestSourceFileName;
+    }
+
+    /*! \brief Set the top comment bloc
+     */
+    void setTopCommentBloc(const TopCommentBloc & bloc) noexcept;
+
+    /*! \brief Get the header file content
+     */
+    const HeaderFileContent & headerFileContent() const noexcept
+    {
+      return mHeaderFileContent;
     }
 
     /*! \brief Create a class from given name
@@ -75,6 +104,8 @@ namespace Mdt{ namespace CppRefactoring{
     std::optional<Namespace> mNamespace;
     HeaderFileName mHeaderFileName;
     SourceFileName mSourceFileName;
+    TestSourceFileName mTestSourceFileName;
+    HeaderFileContent mHeaderFileContent;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

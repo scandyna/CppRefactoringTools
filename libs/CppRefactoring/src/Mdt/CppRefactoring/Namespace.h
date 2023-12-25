@@ -12,6 +12,9 @@
 
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
+#include <QLatin1String>
+#include <QStringList>
+#include <QLatin1Char>
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -24,6 +27,35 @@ namespace Mdt{ namespace CppRefactoring{
    public:
 
     Namespace() = delete;
+
+    /*! \brief Get a list of parts representation of this namespace
+     *
+     * Each item will contain a part of the namespace.
+     * Example:
+     * \code
+     * Mdt::CppRefactoring -> {Mdt,CppRefactoring}
+     * \endcode
+     */
+    const QStringList & partList() const noexcept
+    {
+      return mPartList;
+    }
+
+    /*! \brief Get a colon separated string representation of this namespace
+     */
+    QString toColonSeparatedString() const noexcept
+    {
+      return mPartList.join( QLatin1String("::") );
+    }
+
+    /*! \brief Get a relative directory path representation of this namespace
+     *
+     * \todo has not realy its place here
+     */
+    QString toDirectoryRelativePath() const noexcept
+    {
+      return mPartList.join( QLatin1Char('/') );
+    }
 
     /*! \brief Check if given char is valid for a namespace
      *
@@ -42,9 +74,14 @@ namespace Mdt{ namespace CppRefactoring{
      */
     static
     Namespace fromColonSeparatedString(const QString & str) noexcept;
+
+   private:
+
+    Namespace(const QStringList & partList) noexcept;
+
+    QStringList mPartList;
   };
 
-  
 }} // namespace Mdt{ namespace CppRefactoring{
 
 #endif // MDT_CPP_REFACTORING_NAMESPACE_H

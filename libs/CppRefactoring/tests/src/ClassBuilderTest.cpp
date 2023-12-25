@@ -25,9 +25,35 @@ TEST_CASE("makeClass")
 {
   ClassEditorData data;
 
-  data.className = "MyClass";
+  SECTION("No namespace")
+  {
+    data.className = "MyClass";
 
-  Class c = ClassBuilder::makeClass(data);
+    Class c = ClassBuilder::makeClass(data);
 
-  REQUIRE( c.name().toString() == "MyClass" );
+    REQUIRE( c.name().toString() == "MyClass" );
+    REQUIRE( !c.isInNamespace() );
+    REQUIRE( !c.headerFileContent().hasTopCommentBloc() );
+  }
+
+  SECTION("In Mdt::CppRefactoring namespace")
+  {
+    data.className = "MyClass";
+    data.namespaceStr = "Mdt::CppRefactoring";
+
+    Class c = ClassBuilder::makeClass(data);
+
+    REQUIRE( c.name().toString() == "MyClass" );
+    REQUIRE( c.ns().toColonSeparatedString() == "Mdt::CppRefactoring" );
+  }
+
+  SECTION("Top comment bloc")
+  {
+    data.className = "MyClass";
+    data.topCommentBloc = "// Top";
+
+    Class c = ClassBuilder::makeClass(data);
+
+    REQUIRE( c.headerFileContent().hasTopCommentBloc() );
+  }
 }

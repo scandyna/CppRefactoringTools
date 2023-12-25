@@ -8,6 +8,7 @@
  **
  *****************************************************************************************/
 #include "ClassBuilder.h"
+#include "TopCommentBloc.h"
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -25,9 +26,21 @@ ClassName ClassBuilder::makeClassName(const QString & name)
 
 Class ClassBuilder::makeClass(const ClassEditorData & editorData)
 {
+  /// \todo validation
+
   ClassName name = makeClassName(editorData.className);
 
   Class c = Class::fromName(name);
+
+  QString nsStr = editorData.namespaceStr.trimmed();
+  if( !nsStr.isEmpty() ){
+    c.setNamespace( Namespace::fromColonSeparatedString(nsStr) );
+  }
+
+  const QString topCommentBloc = editorData.topCommentBloc.trimmed();
+  if( !topCommentBloc.isEmpty() ){
+    c.setTopCommentBloc( TopCommentBloc::fromString(topCommentBloc) );
+  }
 
   return c;
 }

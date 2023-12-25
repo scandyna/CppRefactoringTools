@@ -37,6 +37,38 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME TestSourceFileNameTest
+  TARGET testSourceFileNameTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestSourceFileNameTest.cpp
+)
+
+mdt_add_test(
+  NAME TopCommentBlocTest
+  TARGET topCommentBlocTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TopCommentBlocTest.cpp
+)
+
+mdt_add_test(
+  NAME IncludeGuardTest
+  TARGET includeGuardTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/IncludeGuardTest.cpp
+)
+
+mdt_add_test(
+  NAME HeaderFileContentTest
+  TARGET headerFileContentTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/HeaderFileContentTest.cpp
+)
+
+mdt_add_test(
   NAME ClassTest
   TARGET classTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt

@@ -8,6 +8,7 @@
  **
  *****************************************************************************************/
 #include "Namespace.h"
+#include <QLatin1String>
 #include <cassert>
 
 namespace Mdt{ namespace CppRefactoring{
@@ -21,6 +22,20 @@ bool Namespace::isValidColonSeparatedString(const QString & str) noexcept
   }
 
   return true;
+}
+
+Namespace Namespace::fromColonSeparatedString(const QString& str) noexcept
+{
+  const QString nsStr = str.trimmed();
+
+  assert( isValidColonSeparatedString(nsStr) );
+
+  return Namespace( nsStr.split(QLatin1String("::"), QString::SkipEmptyParts, Qt::CaseSensitive) );
+}
+
+Namespace::Namespace(const QStringList & partList) noexcept
+ : mPartList(partList)
+{
 }
 
 }} // namespace Mdt{ namespace CppRefactoring{

@@ -10,6 +10,10 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/ClassName.cpp
   Mdt/CppRefactoring/HeaderFileName.cpp
   Mdt/CppRefactoring/SourceFileName.cpp
+  Mdt/CppRefactoring/TestSourceFileName.cpp
+  Mdt/CppRefactoring/TopCommentBloc.cpp
+  Mdt/CppRefactoring/IncludeGuard.cpp
+  Mdt/CppRefactoring/HeaderFileContent.cpp
   Mdt/CppRefactoring/Class.cpp
   Mdt/CppRefactoring/ClassBuilder.cpp
 )

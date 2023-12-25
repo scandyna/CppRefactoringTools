@@ -26,6 +26,8 @@ namespace Mdt{ namespace CppRefactoring{
   struct ClassEditorData
   {
     QString className;
+    QString namespaceStr;
+    QString topCommentBloc;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

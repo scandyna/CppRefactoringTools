@@ -32,3 +32,21 @@ TEST_CASE("setClassName")
   REQUIRE( editor.hasValidClass() );
   REQUIRE( editor.validClass().name().toString() == "MyClass" );
 }
+
+TEST_CASE("setNamespace")
+{
+  CreateClassEditor editor;
+
+  editor.setNamespace("Mdt");
+
+  REQUIRE( editor.editorData().namespaceStr == "Mdt" );
+}
+
+TEST_CASE("setTopCommentBloc")
+{
+  CreateClassEditor editor;
+
+  editor.setTopCommentBloc("// Top");
+
+  REQUIRE( editor.editorData().topCommentBloc == "// Top" );
+}

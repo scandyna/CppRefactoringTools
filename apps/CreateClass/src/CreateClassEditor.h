@@ -51,7 +51,17 @@ class CreateClassEditor : public QObject
    */
   void setClassName(const QString & name);
 
+  /*! \brief Set the namespace
+   */
+  void setNamespace(const QString & ns);
+
+  /*! \brief Set the top comment bloc
+   */
+  void setTopCommentBloc(const QString & bloc);
+
   /*! \brief Refresh
+   *
+   * \todo define exceptions
    */
   void refresh() noexcept;
 

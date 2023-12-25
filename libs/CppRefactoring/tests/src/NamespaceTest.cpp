@@ -34,5 +34,23 @@ TEST_CASE("isValidColonSeparatedString")
 
 TEST_CASE("fromColonSeparatedString")
 {
-  REQUIRE(false);
+  auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
+
+  REQUIRE( ns.partList().size() == 2 );
+  REQUIRE( ns.partList().at(0) == "Mdt" );
+  REQUIRE( ns.partList().at(1) == "CppRefactoring" );
+}
+
+TEST_CASE("toColonSeparatedString")
+{
+  auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
+
+  REQUIRE( ns.toColonSeparatedString() == "Mdt::CppRefactoring" );
+}
+
+TEST_CASE("toDirectoryRelativePath")
+{
+  auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
+
+  REQUIRE( ns.toDirectoryRelativePath() == "Mdt/CppRefactoring" );
 }

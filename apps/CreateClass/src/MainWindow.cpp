@@ -26,11 +26,42 @@ void MainWindow::updateEditorUi(const Class & c) noexcept
   mUi.classNameEdit->setText( c.name().toString() );
   mUi.headerFileNameEdit->setText( c.headerFileName().toString() );
   mUi.sourceFileNameEdit->setText( c.sourceFileName().toString() );
+  mUi.testSourceFileNameEdit->setText( c.testSourceFileName().toString() );
+
+  if( c.isInNamespace() ){
+    mUi.namespaceEdit->setText( c.ns().toColonSeparatedString() );
+    mUi.sourceRelativePathEdit->setText( c.ns().toDirectoryRelativePath() );
+  }else{
+    mUi.namespaceEdit->clear();
+    mUi.sourceRelativePathEdit->clear();
+  }
+
+  updateHeaderFileContentUi( c.headerFileContent() );
+}
+
+void MainWindow::updateHeaderFileContentUi(const Mdt::CppRefactoring::HeaderFileContent & content) noexcept
+{
+  mUi.headerFileEdit->setPlainText( content.toString() );
 }
 
 void MainWindow::setupEditorUi() noexcept
 {
   connect(mUi.classNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setClassName);
+  connect(mUi.namespaceEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setNamespace);
   connect(mUi.action_Update, &QAction::triggered, &mEditor, &CreateClassEditor::refresh);
   connect(&mEditor, &CreateClassEditor::classUpdated, this, &MainWindow::updateEditorUi);
+
+  mEditor.setTopCommentBloc(
+    QLatin1String(
+      "// SPDX-License-Identifier: LGPL-3.0-or-later\n"
+      "/****************************************************************************************\n"
+      "**\n"
+      "** MdtCppRefactoringTools\n"
+      "** Tools to help C++ refactoring.\n"
+      "**\n"
+      "** Copyright (C) 2023-2023 Philippe Steinmann.\n"
+      "**\n"
+      "*****************************************************************************************/"
+    )
+  );
 }

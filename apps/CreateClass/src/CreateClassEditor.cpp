@@ -33,6 +33,16 @@ void CreateClassEditor::setClassName(const QString & name)
   /// \todo If name is valid, should change state to enable possible functions
 }
 
+void CreateClassEditor::setNamespace(const QString& ns)
+{
+  mEditorData.namespaceStr = ns;
+}
+
+void CreateClassEditor::setTopCommentBloc(const QString& bloc)
+{
+  mEditorData.topCommentBloc = bloc;
+}
+
 void CreateClassEditor::refresh() noexcept
 {
   mClass = ClassBuilder::makeClass(mEditorData);
