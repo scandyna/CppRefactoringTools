@@ -23,6 +23,7 @@ void HeaderFileContent::setNamespace(const Namespace & ns) noexcept
 {
   mIncludeGuard.setNamespace(ns);
   mNamespace = ns;
+  mClassDeclaration.setIndentationCharCount(2);
 }
 
 QString HeaderFileContent::toString() const noexcept
@@ -36,6 +37,9 @@ QString HeaderFileContent::toString() const noexcept
   str += mIncludeGuard.toBeginString()
       % QLatin1Char('\n')
       % getBeginNamespaceStringIf()
+      % mClassDeclaration.toString()
+      % QLatin1Char('\n')
+      % QLatin1Char('\n')
       % getEndNamespaceStringIf()
       % mIncludeGuard.toEndString();
 

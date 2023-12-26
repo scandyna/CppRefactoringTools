@@ -9,6 +9,7 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/ClassEditorData.cpp
   Mdt/CppRefactoring/Namespace.cpp
   Mdt/CppRefactoring/ClassName.cpp
+  Mdt/CppRefactoring/ClassDeclaration.cpp
   Mdt/CppRefactoring/HeaderFileName.cpp
   Mdt/CppRefactoring/SourceFileName.cpp
   Mdt/CppRefactoring/TestSourceFileName.cpp

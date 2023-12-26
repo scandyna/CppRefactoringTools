@@ -44,6 +44,10 @@ TEST_CASE("toString")
       "#ifndef MY_CLASS_H\n"
       "#define MY_CLASS_H\n"
       "\n"
+      "class MyClass\n"
+      "{\n"
+      "};\n"
+      "\n"
       "#endif // #ifndef MY_CLASS_H\n";
 
     REQUIRE( content.toString() == expectedResult );
@@ -57,6 +61,10 @@ TEST_CASE("toString")
       "// Top\n"
       "#ifndef MY_CLASS_H\n"
       "#define MY_CLASS_H\n"
+      "\n"
+      "class MyClass\n"
+      "{\n"
+      "};\n"
       "\n"
       "#endif // #ifndef MY_CLASS_H\n";
 
@@ -74,6 +82,10 @@ TEST_CASE("toString")
       "#define MDT_CPP_REFACTORING_MY_CLASS_H\n"
       "\n"
       "namespace Mdt{ namespace CppRefactoring{\n"
+      "\n"
+      "  class MyClass\n"
+      "  {\n"
+      "  };\n"
       "\n"
       "}} // namespace Mdt{ namespace CppRefactoring{\n"
       "\n"

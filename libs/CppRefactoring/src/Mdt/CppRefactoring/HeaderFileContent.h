@@ -14,6 +14,7 @@
 #include "Mdt/CppRefactoring/TopCommentBloc.h"
 #include "Mdt/CppRefactoring/IncludeGuard.h"
 #include "Mdt/CppRefactoring/Namespace.h"
+#include "Mdt/CppRefactoring/ClassDeclaration.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
@@ -31,7 +32,8 @@ namespace Mdt{ namespace CppRefactoring{
     /*! \brief Construct a content from given class name
      */
     HeaderFileContent(const ClassName & name) noexcept
-     : mIncludeGuard(name)
+     : mIncludeGuard(name),
+       mClassDeclaration(name)
     {
     }
 
@@ -61,6 +63,7 @@ namespace Mdt{ namespace CppRefactoring{
 
     std::optional<TopCommentBloc> mTopCommentBloc;
     IncludeGuard mIncludeGuard;
+    ClassDeclaration mClassDeclaration;
     std::optional<Namespace> mNamespace;
   };
 
