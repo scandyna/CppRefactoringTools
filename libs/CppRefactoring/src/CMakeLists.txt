@@ -5,6 +5,7 @@ include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
 add_library(Mdt_CppRefactoring
+  Mdt/CppRefactoring/Algorithm.cpp
   Mdt/CppRefactoring/ClassEditorData.cpp
   Mdt/CppRefactoring/Namespace.cpp
   Mdt/CppRefactoring/ClassName.cpp

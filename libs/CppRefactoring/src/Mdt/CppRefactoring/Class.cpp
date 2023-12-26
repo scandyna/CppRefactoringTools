@@ -15,6 +15,7 @@ namespace Mdt{ namespace CppRefactoring{
 void Class::setNamespace(const Namespace & ns) noexcept
 {
   mNamespace = ns;
+  mHeaderFileContent.setNamespace(ns);
 }
 
 const Namespace & Class::ns() const noexcept

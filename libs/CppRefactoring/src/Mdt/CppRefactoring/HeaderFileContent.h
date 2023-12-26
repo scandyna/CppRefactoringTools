@@ -46,6 +46,10 @@ namespace Mdt{ namespace CppRefactoring{
      */
     void setTopCommentBloc(const TopCommentBloc & bloc) noexcept;
 
+    /*! \brief Set the namespace
+     */
+    void setNamespace(const Namespace & ns) noexcept;
+
     /*! \brief Get the string representation of this content
      */
     QString toString() const noexcept;

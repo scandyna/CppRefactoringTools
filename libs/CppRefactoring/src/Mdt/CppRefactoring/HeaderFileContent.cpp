@@ -19,6 +19,11 @@ void HeaderFileContent::setTopCommentBloc(const TopCommentBloc & bloc) noexcept
   mTopCommentBloc = bloc;
 }
 
+void HeaderFileContent::setNamespace(const Namespace & ns) noexcept
+{
+  mIncludeGuard.setNamespace(ns);
+}
+
 QString HeaderFileContent::toString() const noexcept
 {
   QString str;

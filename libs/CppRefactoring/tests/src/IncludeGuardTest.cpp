@@ -40,6 +40,18 @@ TEST_CASE("toBeginString")
 
     REQUIRE( guard.toBeginString() == expectedString );
   }
+
+  SECTION("In Mdt::CppRefactoring namespace")
+  {
+    expectedString =
+     "#ifndef MDT_CPP_REFACTORING_MY_CLASS_H\n"
+     "#define MDT_CPP_REFACTORING_MY_CLASS_H\n";
+
+    guard.setNamespace( Namespace::fromColonSeparatedString("Mdt::CppRefactoring") );
+
+    REQUIRE( guard.toBeginString() == expectedString );
+  }
+
 }
 
 TEST_CASE("toEndString")

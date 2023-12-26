@@ -8,6 +8,7 @@
 **
 *****************************************************************************************/
 #include "IncludeGuard.h"
+#include "Algorithm.h"
 #include <QLatin1Char>
 #include <QLatin1String>
 #include <QStringBuilder>
@@ -41,7 +42,7 @@ QString IncludeGuard::formatNamespace() const noexcept
 
 QString IncludeGuard::formatClassName() const noexcept
 {
-  return formatNamespace() % mClassName.toString() % QLatin1String("_H\n");
+  return snakeCaseUpperStringFromCamelCaseString( formatNamespace() % mClassName.toString() % QLatin1String("_H\n") );
 }
 
 }} // namespace Mdt{ namespace CppRefactoring{
