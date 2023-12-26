@@ -48,6 +48,18 @@ namespace Mdt{ namespace CppRefactoring{
       return mPartList.join( QLatin1String("::") );
     }
 
+    /*! \brief Get the namespace begin string
+     */
+    QString toBeginString() const noexcept;
+
+    /*! \brief Get the namespace end string
+     */
+    QString toEndString() const noexcept;
+
+    /*! \brief Get the using namespace string
+     */
+    QString toUsingString() const noexcept;
+
     /*! \brief Get a relative directory path representation of this namespace
      *
      * \todo has not realy its place here

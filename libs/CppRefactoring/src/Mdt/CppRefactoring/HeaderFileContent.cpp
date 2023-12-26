@@ -22,6 +22,7 @@ void HeaderFileContent::setTopCommentBloc(const TopCommentBloc & bloc) noexcept
 void HeaderFileContent::setNamespace(const Namespace & ns) noexcept
 {
   mIncludeGuard.setNamespace(ns);
+  mNamespace = ns;
 }
 
 QString HeaderFileContent::toString() const noexcept
@@ -34,9 +35,27 @@ QString HeaderFileContent::toString() const noexcept
 
   str += mIncludeGuard.toBeginString()
       % QLatin1Char('\n')
+      % getBeginNamespaceStringIf()
+      % getEndNamespaceStringIf()
       % mIncludeGuard.toEndString();
 
   return str;
+}
+
+QString HeaderFileContent::getBeginNamespaceStringIf() const
+{
+  if(mNamespace){
+    return mNamespace->toBeginString() % QLatin1String("\n\n");
+  }
+  return QString();
+}
+
+QString HeaderFileContent::getEndNamespaceStringIf() const
+{
+  if(mNamespace){
+   return mNamespace->toEndString() % QLatin1String("\n\n");
+  }
+  return QString();
 }
 
 }} // namespace Mdt{ namespace CppRefactoring{

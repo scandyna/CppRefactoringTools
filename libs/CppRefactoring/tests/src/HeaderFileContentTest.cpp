@@ -62,4 +62,23 @@ TEST_CASE("toString")
 
     REQUIRE( content.toString() == expectedResult );
   }
+
+  SECTION("With top comment and namespace")
+  {
+    content.setTopCommentBloc( TopCommentBloc::fromString("// Top") );
+    content.setNamespace( Namespace::fromColonSeparatedString("Mdt::CppRefactoring") );
+
+    expectedResult =
+      "// Top\n"
+      "#ifndef MDT_CPP_REFACTORING_MY_CLASS_H\n"
+      "#define MDT_CPP_REFACTORING_MY_CLASS_H\n"
+      "\n"
+      "namespace Mdt{ namespace CppRefactoring{\n"
+      "\n"
+      "}} // namespace Mdt{ namespace CppRefactoring{\n"
+      "\n"
+      "#endif // #ifndef MDT_CPP_REFACTORING_MY_CLASS_H\n";
+
+    REQUIRE( content.toString() == expectedResult );
+  }
 }

@@ -54,3 +54,54 @@ TEST_CASE("toDirectoryRelativePath")
 
   REQUIRE( ns.toDirectoryRelativePath() == "Mdt/CppRefactoring" );
 }
+
+TEST_CASE("toBeginString")
+{
+  SECTION("Mdt")
+  {
+    auto ns = Namespace::fromColonSeparatedString("Mdt");
+
+    REQUIRE( ns.toBeginString() == "namespace Mdt{" );
+  }
+
+  SECTION("Mdt::CppRefactoring")
+  {
+    auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
+
+    REQUIRE( ns.toBeginString() == "namespace Mdt{ namespace CppRefactoring{" );
+  }
+}
+
+TEST_CASE("toEndString")
+{
+  SECTION("Mdt")
+  {
+    auto ns = Namespace::fromColonSeparatedString("Mdt");
+
+    REQUIRE( ns.toEndString() == "} // namespace Mdt{" );
+  }
+
+  SECTION("Mdt::CppRefactoring")
+  {
+    auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
+
+    REQUIRE( ns.toEndString() == "}} // namespace Mdt{ namespace CppRefactoring{" );
+  }
+}
+
+TEST_CASE("toUsingString")
+{
+  SECTION("Mdt")
+  {
+    auto ns = Namespace::fromColonSeparatedString("Mdt");
+
+    REQUIRE( ns.toUsingString() == "using namespace Mdt;" );
+  }
+
+  SECTION("Mdt::CppRefactoring")
+  {
+    auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
+
+    REQUIRE( ns.toUsingString() == "using namespace Mdt::CppRefactoring;" );
+  }
+}

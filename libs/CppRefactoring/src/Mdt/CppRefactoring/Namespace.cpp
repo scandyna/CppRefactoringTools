@@ -9,9 +9,47 @@
  *****************************************************************************************/
 #include "Namespace.h"
 #include <QLatin1String>
+#include <QLatin1Char>
+#include <QStringBuilder>
 #include <cassert>
 
 namespace Mdt{ namespace CppRefactoring{
+
+QString Namespace::toBeginString() const noexcept
+{
+  QString result;
+
+  auto it = mPartList.cbegin();
+  const auto end = mPartList.cend();
+
+  if(it == end){
+    return result;
+  }
+
+  result.append( QLatin1String("namespace ") % *it % QLatin1String("{") );
+
+  ++it;
+  while(it != end){
+    result.append( QLatin1String(" namespace ") % *it % QLatin1String("{") );
+    ++it;
+  }
+
+  return result;
+}
+
+QString Namespace::toEndString() const noexcept
+{
+  QString result( mPartList.size(), QLatin1Char('}') );
+
+  result += QLatin1String(" // ") % toBeginString();
+
+  return result;
+}
+
+QString Namespace::toUsingString() const noexcept
+{
+  return QLatin1String("using namespace ") % toColonSeparatedString() % QLatin1Char(';');
+}
 
 bool Namespace::isValidColonSeparatedString(const QString & str) noexcept
 {

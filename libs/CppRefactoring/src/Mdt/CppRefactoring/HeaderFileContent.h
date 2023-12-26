@@ -56,8 +56,12 @@ namespace Mdt{ namespace CppRefactoring{
 
    private:
 
+    QString getBeginNamespaceStringIf() const;
+    QString getEndNamespaceStringIf() const;
+
     std::optional<TopCommentBloc> mTopCommentBloc;
     IncludeGuard mIncludeGuard;
+    std::optional<Namespace> mNamespace;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{
