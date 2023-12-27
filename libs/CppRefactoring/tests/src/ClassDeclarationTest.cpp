@@ -40,4 +40,17 @@ TEST_CASE("toString")
 
     REQUIRE( cd.toString() == expectedResult );
   }
+
+  SECTION("library export")
+  {
+    auto libraryExport = LibraryExport::fromLibraryBaseName("Mdt_CppRefactoring");
+    cd.setLibraryExport(libraryExport);
+
+    QString expectedResult =
+      "class MDT_CPPREFACTORING_EXPORT MyClass\n"
+      "{\n"
+      "};";
+
+    REQUIRE( cd.toString() == expectedResult );
+  }
 }

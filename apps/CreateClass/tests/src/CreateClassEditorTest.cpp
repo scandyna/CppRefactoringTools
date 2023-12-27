@@ -50,3 +50,39 @@ TEST_CASE("setTopCommentBloc")
 
   REQUIRE( editor.editorData().topCommentBloc == "// Top" );
 }
+
+TEST_CASE("setUseLibraryExport")
+{
+  CreateClassEditor editor;
+
+  SECTION("by default no library export")
+  {
+    REQUIRE( !editor.editorData().useLibraryExport );
+  }
+
+  SECTION("use library export")
+  {
+    editor.setUseLibraryExport(true);
+
+    REQUIRE( editor.editorData().useLibraryExport );
+  }
+}
+
+TEST_CASE("setLibraryBaseName")
+{
+  CreateClassEditor editor;
+
+  editor.setLibraryBaseName("Mdt_CppRefactoring");
+
+  REQUIRE( editor.editorData().libraryBaseName == "Mdt_CppRefactoring" );
+}
+
+TEST_CASE("setLibraryBaseNameFromNamespace")
+{
+  CreateClassEditor editor;
+
+  editor.setNamespace("Mdt::CppRefactoring");
+  editor.setLibraryBaseNameFromNamespace();
+
+  REQUIRE( editor.editorData().libraryBaseName == "Mdt_CppRefactoring" );
+}

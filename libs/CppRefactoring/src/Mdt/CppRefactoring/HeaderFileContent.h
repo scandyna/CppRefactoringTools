@@ -15,6 +15,8 @@
 #include "Mdt/CppRefactoring/IncludeGuard.h"
 #include "Mdt/CppRefactoring/Namespace.h"
 #include "Mdt/CppRefactoring/ClassDeclaration.h"
+#include "Mdt/CppRefactoring/LibraryExport.h"
+#include "Mdt/CppRefactoring/IncludeStatementBloc.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
@@ -44,6 +46,13 @@ namespace Mdt{ namespace CppRefactoring{
       return mTopCommentBloc.has_value();
     }
 
+    /*! \brief Check if library export is used
+     */
+    bool hasLibraryExport() const noexcept
+    {
+      return mLibraryExport.has_value();
+    }
+
     /*! \brief Set the top comment bloc
      */
     void setTopCommentBloc(const TopCommentBloc & bloc) noexcept;
@@ -52,19 +61,26 @@ namespace Mdt{ namespace CppRefactoring{
      */
     void setNamespace(const Namespace & ns) noexcept;
 
+    /*! \brief Set the library export
+     */
+    void setLibraryExport(const LibraryExport & libraryExport) noexcept;
+
     /*! \brief Get the string representation of this content
      */
     QString toString() const noexcept;
 
    private:
 
-    QString getBeginNamespaceStringIf() const;
-    QString getEndNamespaceStringIf() const;
+    QString getBeginNamespaceStringIf() const noexcept;
+    QString getEndNamespaceStringIf() const noexcept;
+    QString getIncludeBlocStringIf() const noexcept;
 
     std::optional<TopCommentBloc> mTopCommentBloc;
     IncludeGuard mIncludeGuard;
     ClassDeclaration mClassDeclaration;
     std::optional<Namespace> mNamespace;
+    std::optional<LibraryExport> mLibraryExport;
+    IncludeStatementBloc mIncludeStatementBloc;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

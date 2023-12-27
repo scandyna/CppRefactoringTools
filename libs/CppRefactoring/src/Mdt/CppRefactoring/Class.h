@@ -17,6 +17,7 @@
 #include "Mdt/CppRefactoring/TestSourceFileName.h"
 #include "Mdt/CppRefactoring/TopCommentBloc.h"
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
+#include "Mdt/CppRefactoring/LibraryExport.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
@@ -80,6 +81,10 @@ namespace Mdt{ namespace CppRefactoring{
     /*! \brief Set the top comment bloc
      */
     void setTopCommentBloc(const TopCommentBloc & bloc) noexcept;
+
+    /*! \brief Set the library export
+     */
+    void setLibraryExport(const LibraryExport & libraryExport) noexcept;
 
     /*! \brief Get the header file content
      */

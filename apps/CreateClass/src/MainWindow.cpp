@@ -51,6 +51,11 @@ void MainWindow::setupEditorUi() noexcept
   connect(mUi.action_Update, &QAction::triggered, &mEditor, &CreateClassEditor::refresh);
   connect(&mEditor, &CreateClassEditor::classUpdated, this, &MainWindow::updateEditorUi);
 
+  connect(mUi.cbUseLibraryExport, &QCheckBox::toggled, &mEditor, &CreateClassEditor::setUseLibraryExport);
+  connect(mUi.libraryBaseNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setLibraryBaseName);
+  connect(mUi.pbLibraryNameFromNamespace, &QPushButton::clicked, &mEditor, &CreateClassEditor::setLibraryBaseNameFromNamespace);
+  connect(&mEditor, &CreateClassEditor::libraryBaseNameGenerated, mUi.libraryBaseNameEdit, &QLineEdit::setText);
+
   mEditor.setTopCommentBloc(
     QLatin1String(
       "// SPDX-License-Identifier: LGPL-3.0-or-later\n"

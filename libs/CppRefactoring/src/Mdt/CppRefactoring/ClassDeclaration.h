@@ -11,8 +11,10 @@
 #define MDT_CPP_REFACTORING_CLASS_DECLARATION_H
 
 #include "Mdt/CppRefactoring/ClassName.h"
+#include "Mdt/CppRefactoring/LibraryExport.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
+#include <optional>
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -37,6 +39,10 @@ namespace Mdt{ namespace CppRefactoring{
      */
     void setIndentationCharCount(int charCount) noexcept;
 
+    /*! \brief Set the library export
+     */
+    void setLibraryExport(const LibraryExport & libraryExport) noexcept;
+
     /*! \brief Get the string representation of this declaration
      */
     QString toString() const noexcept;
@@ -44,9 +50,11 @@ namespace Mdt{ namespace CppRefactoring{
    private:
 
     QString getIndentationString() const noexcept;
+    QString getLibraryExportMacroIf() const noexcept;
 
     ClassName mClassName;
     int mIndentationCharCount = 0;
+    std::optional<LibraryExport> mLibraryExport;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

@@ -93,4 +93,24 @@ TEST_CASE("toString")
 
     REQUIRE( content.toString() == expectedResult );
   }
+
+  SECTION("With export")
+  {
+    auto libraryExport = LibraryExport::fromLibraryBaseName("Mdt_CppRefactoring");
+    content.setLibraryExport(libraryExport);
+
+    expectedResult =
+      "#ifndef MY_CLASS_H\n"
+      "#define MY_CLASS_H\n"
+      "\n"
+      "#include \"mdt_cpprefactoring_export.h\"\n"
+      "\n"
+      "class MDT_CPPREFACTORING_EXPORT MyClass\n"
+      "{\n"
+      "};\n"
+      "\n"
+      "#endif // #ifndef MY_CLASS_H\n";
+
+    REQUIRE( content.toString() == expectedResult );
+  }
 }

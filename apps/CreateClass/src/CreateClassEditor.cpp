@@ -9,6 +9,7 @@
  *****************************************************************************************/
 #include "CreateClassEditor.h"
 #include "Mdt/CppRefactoring/ClassBuilder.h"
+#include "Mdt/CppRefactoring/Namespace.h"
 #include <cassert>
 
 using namespace Mdt::CppRefactoring;
@@ -41,6 +42,26 @@ void CreateClassEditor::setNamespace(const QString& ns)
 void CreateClassEditor::setTopCommentBloc(const QString& bloc)
 {
   mEditorData.topCommentBloc = bloc;
+}
+
+void CreateClassEditor::setUseLibraryExport(bool use) noexcept
+{
+  mEditorData.useLibraryExport = use;
+}
+
+void CreateClassEditor::setLibraryBaseName(const QString& name) noexcept
+{
+  mEditorData.libraryBaseName = name;
+}
+
+/// \todo Really just a sandbox
+void CreateClassEditor::setLibraryBaseNameFromNamespace() noexcept
+{
+  auto ns = Namespace::fromColonSeparatedString(mEditorData.namespaceStr);
+
+  mEditorData.libraryBaseName = ns.partList().join( QLatin1Char('_') );
+
+  emit libraryBaseNameGenerated(mEditorData.libraryBaseName);
 }
 
 void CreateClassEditor::refresh() noexcept

@@ -23,9 +23,14 @@ void ClassDeclaration::setIndentationCharCount(int charCount) noexcept
   mIndentationCharCount = charCount;
 }
 
+void ClassDeclaration::setLibraryExport(const LibraryExport & libraryExport) noexcept
+{
+  mLibraryExport = libraryExport;
+}
+
 QString ClassDeclaration::toString() const noexcept
 {
-  return getIndentationString() % QLatin1String("class ") % mClassName.toString() % QLatin1Char('\n')
+  return getIndentationString() % QLatin1String("class ") % getLibraryExportMacroIf() % mClassName.toString() % QLatin1Char('\n')
          % getIndentationString() % QLatin1String("{\n")
          % getIndentationString() % QLatin1String("};");
 }
@@ -33,6 +38,14 @@ QString ClassDeclaration::toString() const noexcept
 QString ClassDeclaration::getIndentationString() const noexcept
 {
   return QString( mIndentationCharCount, QLatin1Char(' ') );
+}
+
+QString ClassDeclaration::getLibraryExportMacroIf() const noexcept
+{
+  if(mLibraryExport){
+    return mLibraryExport->toUsageMacroString() % QLatin1Char(' ');
+  }
+  return QString();
 }
 
 }} // namespace Mdt{ namespace CppRefactoring{

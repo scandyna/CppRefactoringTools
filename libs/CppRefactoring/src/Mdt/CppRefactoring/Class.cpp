@@ -30,6 +30,11 @@ void Class::setTopCommentBloc(const TopCommentBloc & bloc) noexcept
   mHeaderFileContent.setTopCommentBloc(bloc);
 }
 
+void Class::setLibraryExport(const LibraryExport & libraryExport) noexcept
+{
+  mHeaderFileContent.setLibraryExport(libraryExport);
+}
+
 Class Class::fromName(const ClassName & name) noexcept
 {
   return Class(name);

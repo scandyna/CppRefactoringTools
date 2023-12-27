@@ -59,6 +59,18 @@ class CreateClassEditor : public QObject
    */
   void setTopCommentBloc(const QString & bloc);
 
+  /*! \brief Set use library export
+   */
+  void setUseLibraryExport(bool use) noexcept;
+
+  /*! \brief Set the library base name
+   */
+  void setLibraryBaseName(const QString & name) noexcept;
+
+  /*! \brief Set the library base name from namespace
+   */
+  void setLibraryBaseNameFromNamespace() noexcept;
+
   /*! \brief Refresh
    *
    * \todo define exceptions
@@ -77,6 +89,8 @@ class CreateClassEditor : public QObject
   /*! \brief Emitted when the class has been updated
    */
   void classUpdated(const Mdt::CppRefactoring::Class & c);
+
+  void libraryBaseNameGenerated(const QString & name);
 
  private:
 

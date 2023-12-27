@@ -77,6 +77,30 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME LibraryExportTest
+  TARGET libraryExportTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/LibraryExportTest.cpp
+)
+
+mdt_add_test(
+  NAME IncludeStatementTest
+  TARGET includeStatementTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/IncludeStatementTest.cpp
+)
+
+mdt_add_test(
+  NAME IncludeStatementBlocTest
+  TARGET includeStatementBlocTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/IncludeStatementBlocTest.cpp
+)
+
+mdt_add_test(
   NAME HeaderFileContentTest
   TARGET headerFileContentTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt

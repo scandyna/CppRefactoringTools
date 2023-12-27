@@ -56,4 +56,15 @@ TEST_CASE("makeClass")
 
     REQUIRE( c.headerFileContent().hasTopCommentBloc() );
   }
+
+  SECTION("library export")
+  {
+    data.className = "MyClass";
+    data.useLibraryExport = true;
+    data.libraryBaseName = "Mdt_CppRefactoring";
+
+    Class c = ClassBuilder::makeClass(data);
+
+    REQUIRE( c.headerFileContent().hasLibraryExport() );
+  }
 }

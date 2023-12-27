@@ -9,6 +9,7 @@
  *****************************************************************************************/
 #include "ClassBuilder.h"
 #include "TopCommentBloc.h"
+#include "LibraryExport.h"
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -40,6 +41,11 @@ Class ClassBuilder::makeClass(const ClassEditorData & editorData)
   const QString topCommentBloc = editorData.topCommentBloc.trimmed();
   if( !topCommentBloc.isEmpty() ){
     c.setTopCommentBloc( TopCommentBloc::fromString(topCommentBloc) );
+  }
+
+  if(editorData.useLibraryExport){
+    auto libraryExport = LibraryExport::fromLibraryBaseName(editorData.libraryBaseName);
+    c.setLibraryExport(libraryExport);
   }
 
   return c;
