@@ -34,6 +34,20 @@ namespace Mdt{ namespace CppRefactoring{
     static
     IncludeStatement fromFileBaseName(const QString & name) noexcept;
 
+    /*! \brief
+     *
+     * \todo define and implement + What about Qt/QtTest ?
+     */
+    static
+    IncludeStatement fromQtClassName(const QString & name) noexcept;
+
+    /*! \brief
+     *
+     * \todo define and implement
+     */
+    static
+    IncludeStatement fromStdlibHeaderName(const QString & name) noexcept;
+
    private:
 
     IncludeStatement(const QString & fileBaseName) noexcept;

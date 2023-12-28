@@ -19,6 +19,7 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/IncludeStatement.cpp
   Mdt/CppRefactoring/IncludeStatementBloc.cpp
   Mdt/CppRefactoring/HeaderFileContent.cpp
+  Mdt/CppRefactoring/SourceFileContent.cpp
   Mdt/CppRefactoring/Class.cpp
   Mdt/CppRefactoring/ClassBuilder.cpp
 )

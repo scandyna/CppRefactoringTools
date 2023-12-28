@@ -109,6 +109,14 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME SourceFileContentTest
+  TARGET sourceFileContentTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/SourceFileContentTest.cpp
+)
+
+mdt_add_test(
   NAME ClassTest
   TARGET classTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt

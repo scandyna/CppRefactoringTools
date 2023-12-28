@@ -37,11 +37,17 @@ void MainWindow::updateEditorUi(const Class & c) noexcept
   }
 
   updateHeaderFileContentUi( c.headerFileContent() );
+  updateSourceFileContentUi( c.sourceFileContent() );
 }
 
-void MainWindow::updateHeaderFileContentUi(const Mdt::CppRefactoring::HeaderFileContent & content) noexcept
+void MainWindow::updateHeaderFileContentUi(const HeaderFileContent & content) noexcept
 {
   mUi.headerFileEdit->setPlainText( content.toString() );
+}
+
+void MainWindow::updateSourceFileContentUi(const SourceFileContent & content) noexcept
+{
+  mUi.sourceFileEdit->setPlainText( content.toString() );
 }
 
 void MainWindow::setupEditorUi() noexcept

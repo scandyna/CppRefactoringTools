@@ -18,6 +18,7 @@
 #include "Mdt/CppRefactoring/TopCommentBloc.h"
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "Mdt/CppRefactoring/LibraryExport.h"
+#include "Mdt/CppRefactoring/SourceFileContent.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
@@ -93,6 +94,13 @@ namespace Mdt{ namespace CppRefactoring{
       return mHeaderFileContent;
     }
 
+    /*! \brief Get the source file content
+     */
+    const SourceFileContent & sourceFileContent() const noexcept
+    {
+      return mSourceFileContent;
+    }
+
     /*! \brief Create a class from given name
      *
      * \pre \a name must be valid
@@ -111,6 +119,7 @@ namespace Mdt{ namespace CppRefactoring{
     SourceFileName mSourceFileName;
     TestSourceFileName mTestSourceFileName;
     HeaderFileContent mHeaderFileContent;
+    SourceFileContent mSourceFileContent;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{
