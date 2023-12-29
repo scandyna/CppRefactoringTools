@@ -30,7 +30,7 @@ void MainWindow::updateEditorUi(const Class & c) noexcept
 
   if( c.isInNamespace() ){
     mUi.namespaceEdit->setText( c.ns().toColonSeparatedString() );
-    mUi.sourceRelativePathEdit->setText( c.ns().toDirectoryRelativePath() );
+    mUi.sourceRelativePathEdit->setText( c.ns().toDirectoryRelativePathString() );
   }else{
     mUi.namespaceEdit->clear();
     mUi.sourceRelativePathEdit->clear();
@@ -38,6 +38,7 @@ void MainWindow::updateEditorUi(const Class & c) noexcept
 
   updateHeaderFileContentUi( c.headerFileContent() );
   updateSourceFileContentUi( c.sourceFileContent() );
+  updateTestSourceFileContentUi( c.testSourceFileContent() );
 }
 
 void MainWindow::updateHeaderFileContentUi(const HeaderFileContent & content) noexcept
@@ -48,6 +49,11 @@ void MainWindow::updateHeaderFileContentUi(const HeaderFileContent & content) no
 void MainWindow::updateSourceFileContentUi(const SourceFileContent & content) noexcept
 {
   mUi.sourceFileEdit->setPlainText( content.toString() );
+}
+
+void MainWindow::updateTestSourceFileContentUi(const TestSourceFileContent & content) noexcept
+{
+  mUi.testSourceFileEdit->setPlainText( content.toString() );
 }
 
 void MainWindow::setupEditorUi() noexcept

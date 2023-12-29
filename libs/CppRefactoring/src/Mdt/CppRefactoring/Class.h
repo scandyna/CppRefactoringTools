@@ -19,6 +19,7 @@
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "Mdt/CppRefactoring/LibraryExport.h"
 #include "Mdt/CppRefactoring/SourceFileContent.h"
+#include "Mdt/CppRefactoring/TestSourceFileContent.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
@@ -101,6 +102,13 @@ namespace Mdt{ namespace CppRefactoring{
       return mSourceFileContent;
     }
 
+    /*! \brief Get the test source file content
+     */
+    const TestSourceFileContent & testSourceFileContent() const noexcept
+    {
+      return mTestSourceFileContent;
+    }
+
     /*! \brief Create a class from given name
      *
      * \pre \a name must be valid
@@ -120,6 +128,7 @@ namespace Mdt{ namespace CppRefactoring{
     TestSourceFileName mTestSourceFileName;
     HeaderFileContent mHeaderFileContent;
     SourceFileContent mSourceFileContent;
+    TestSourceFileContent mTestSourceFileContent;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

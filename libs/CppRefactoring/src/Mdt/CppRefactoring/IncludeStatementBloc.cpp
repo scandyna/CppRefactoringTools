@@ -11,12 +11,54 @@
 #include <QLatin1Char>
 #include <QLatin1String>
 #include <QStringBuilder>
+#include <algorithm>
 
 namespace Mdt{ namespace CppRefactoring{
+
+template<typename It>
+It findIncludeStatementInBloc(It first, It last, const IncludeStatement & statement) noexcept
+{
+  const auto pred = [&statement](const IncludeStatement & currentStatement){
+    return currentStatement.fileRelativePath() == statement.fileRelativePath();
+  };
+
+  return std::find_if(first, last, pred);
+}
+
+template<typename It>
+It findIncludeStatementByNameInBloc(It first, It last, const IncludeStatement & statement) noexcept
+{
+  const auto pred = [&statement](const IncludeStatement & currentStatement){
+    return currentStatement.fileName() == statement.fileName();
+  };
+
+  return std::find_if(first, last, pred);
+}
+
 
 void IncludeStatementBloc::appendStatement(const IncludeStatement & statement) noexcept
 {
   mList.push_back(statement);
+}
+
+void IncludeStatementBloc::updateOrAppendStatement(const IncludeStatement & statement) noexcept
+{
+  const auto it = findIncludeStatementInBloc(mList.begin(), mList.end(), statement);
+  if( it == mList.end() ){
+    appendStatement(statement);
+  }else{
+    *it = statement;
+  }
+}
+
+void IncludeStatementBloc::updateOrAppendStatementByFileName(const IncludeStatement & statement) noexcept
+{
+  const auto it = findIncludeStatementByNameInBloc(mList.begin(), mList.end(), statement);
+  if( it == mList.end() ){
+    appendStatement(statement);
+  }else{
+    *it = statement;
+  }
 }
 
 QString IncludeStatementBloc::toString() const noexcept

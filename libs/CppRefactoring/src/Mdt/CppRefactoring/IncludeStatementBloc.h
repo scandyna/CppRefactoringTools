@@ -34,6 +34,30 @@ namespace Mdt{ namespace CppRefactoring{
      */
     void appendStatement(const IncludeStatement & statement) noexcept;
 
+    /*! \brief Update or append a statement
+     *
+     * Comparison of statements is done on the statement's file relative path
+     *
+     * Examples:
+     * \code
+     * File.h != Mdt/File.h
+     * File.h != File
+     * \endcode
+     */
+    void updateOrAppendStatement(const IncludeStatement & statement) noexcept;
+
+    /*! \brief Update or append a statement
+     *
+     * Comparison of statements is done on the statement's file name
+     *
+     * Examples:
+     * \code
+     * File.h == Mdt/File.h
+     * File.h != File
+     * \endcode
+     */
+    void updateOrAppendStatementByFileName(const IncludeStatement & statement) noexcept;
+
     /*! \brief Get the string representation of this bloc
      */
     QString toString() const noexcept;

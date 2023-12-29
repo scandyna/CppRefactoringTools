@@ -30,6 +30,7 @@ namespace Mdt{ namespace CppRefactoring{
     QString topCommentBloc;
     bool useLibraryExport = false;
     QString libraryBaseName;
+    /// TestFrameworkEditorData testFrameworkData;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

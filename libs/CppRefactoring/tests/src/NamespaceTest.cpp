@@ -52,7 +52,7 @@ TEST_CASE("toDirectoryRelativePath")
 {
   auto ns = Namespace::fromColonSeparatedString("Mdt::CppRefactoring");
 
-  REQUIRE( ns.toDirectoryRelativePath() == "Mdt/CppRefactoring" );
+  REQUIRE( ns.toDirectoryRelativePathString() == "Mdt/CppRefactoring" );
 }
 
 TEST_CASE("toBeginString")

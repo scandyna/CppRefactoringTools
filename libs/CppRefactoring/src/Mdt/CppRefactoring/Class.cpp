@@ -17,6 +17,7 @@ void Class::setNamespace(const Namespace & ns) noexcept
   mNamespace = ns;
   mHeaderFileContent.setNamespace(ns);
   mSourceFileContent.setNamespace(ns);
+  mTestSourceFileContent.setNamespace(ns);
 }
 
 const Namespace & Class::ns() const noexcept
@@ -30,6 +31,7 @@ void Class::setTopCommentBloc(const TopCommentBloc & bloc) noexcept
 {
   mHeaderFileContent.setTopCommentBloc(bloc);
   mSourceFileContent.setTopCommentBloc(bloc);
+  mTestSourceFileContent.setTopCommentBloc(bloc);
 }
 
 void Class::setLibraryExport(const LibraryExport & libraryExport) noexcept
@@ -48,7 +50,8 @@ Class::Class(const ClassName & name) noexcept
    mSourceFileName( SourceFileName::fromClassName(name) ),
    mTestSourceFileName( TestSourceFileName::fromClassName(name) ),
    mHeaderFileContent(name),
-   mSourceFileContent(name)
+   mSourceFileContent(name),
+   mTestSourceFileContent(name)
 {
 }
 

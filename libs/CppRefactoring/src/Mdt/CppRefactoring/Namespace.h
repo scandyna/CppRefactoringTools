@@ -10,6 +10,7 @@
 #ifndef MDT_CPP_REFACTORING_NAMESPACE_H
 #define MDT_CPP_REFACTORING_NAMESPACE_H
 
+#include "Mdt/CppRefactoring/DirectoryRelativePath.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <QLatin1String>
@@ -64,9 +65,18 @@ namespace Mdt{ namespace CppRefactoring{
      *
      * \todo has not realy its place here
      */
-    QString toDirectoryRelativePath() const noexcept
+    DirectoryRelativePath toDirectoryRelativePath() const noexcept
     {
-      return mPartList.join( QLatin1Char('/') );
+      return DirectoryRelativePath::fromString( mPartList.join( QLatin1Char('/') ) );
+    }
+
+    /*! \brief Get a relative directory path representation of this namespace
+     *
+     * \todo has not realy its place here
+     */
+    QString toDirectoryRelativePathString() const noexcept
+    {
+      return toDirectoryRelativePath().toString();
     }
 
     /*! \brief Check if given char is valid for a namespace

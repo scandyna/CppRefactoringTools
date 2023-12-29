@@ -14,6 +14,7 @@
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "Mdt/CppRefactoring/SourceFileContent.h"
+#include "Mdt/CppRefactoring/TestSourceFileContent.h"
 #include "ui_MainWindow.h"
 #include <QMainWindow>
 
@@ -35,6 +36,7 @@ class MainWindow : public QMainWindow
   void updateEditorUi(const Mdt::CppRefactoring::Class & c) noexcept;
   void updateHeaderFileContentUi(const Mdt::CppRefactoring::HeaderFileContent & content) noexcept;
   void updateSourceFileContentUi(const Mdt::CppRefactoring::SourceFileContent & content) noexcept;
+  void updateTestSourceFileContentUi(const Mdt::CppRefactoring::TestSourceFileContent & content) noexcept;
 
  private:
 

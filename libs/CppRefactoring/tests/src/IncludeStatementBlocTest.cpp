@@ -27,6 +27,37 @@ TEST_CASE("addAStatement")
   REQUIRE( !bloc.isEmpty() );
 }
 
+TEST_CASE("updateOrAppendStatement")
+{
+  IncludeStatementBloc bloc;
+  auto stm = IncludeStatement::fromFileBaseName("MyClass");
+
+  bloc.updateOrAppendStatement(stm);
+
+  REQUIRE( bloc.toString() == "#include \"MyClass.h\"" );
+
+  stm.setSystemInclude(true);
+  bloc.updateOrAppendStatement(stm);
+
+  REQUIRE( bloc.toString() == "#include <MyClass.h>" );
+}
+
+TEST_CASE("updateOrAppendStatementByFileName")
+{
+  IncludeStatementBloc bloc;
+  auto stm = IncludeStatement::fromFileBaseName("MyClass");
+
+  bloc.updateOrAppendStatementByFileName(stm);
+
+  REQUIRE( bloc.toString() == "#include \"MyClass.h\"" );
+
+  stm = IncludeStatement::from_q_char_sequence("Mdt/MyClass.h");
+  bloc.updateOrAppendStatementByFileName(stm);
+
+  REQUIRE( bloc.toString() == "#include \"Mdt/MyClass.h\"" );
+
+}
+
 TEST_CASE("toString")
 {
   IncludeStatementBloc bloc;

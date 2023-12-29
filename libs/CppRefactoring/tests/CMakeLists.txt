@@ -13,6 +13,14 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME DirectoryRelativePathTest
+  TARGET directoryRelativePathTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/DirectoryRelativePathTest.cpp
+)
+
+mdt_add_test(
   NAME NamespaceTest
   TARGET namespaceTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
@@ -114,6 +122,14 @@ mdt_add_test(
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
   SOURCE_FILES
     src/SourceFileContentTest.cpp
+)
+
+mdt_add_test(
+  NAME TestSourceFileContentTest
+  TARGET testSourceFileContentTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestSourceFileContentTest.cpp
 )
 
 mdt_add_test(

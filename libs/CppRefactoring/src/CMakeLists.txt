@@ -6,6 +6,7 @@ include(MdtInstallLibrary)
 
 add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/Algorithm.cpp
+  Mdt/CppRefactoring/DirectoryRelativePath.cpp
   Mdt/CppRefactoring/ClassEditorData.cpp
   Mdt/CppRefactoring/Namespace.cpp
   Mdt/CppRefactoring/ClassName.cpp
@@ -20,6 +21,7 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/IncludeStatementBloc.cpp
   Mdt/CppRefactoring/HeaderFileContent.cpp
   Mdt/CppRefactoring/SourceFileContent.cpp
+  Mdt/CppRefactoring/TestSourceFileContent.cpp
   Mdt/CppRefactoring/Class.cpp
   Mdt/CppRefactoring/ClassBuilder.cpp
 )
