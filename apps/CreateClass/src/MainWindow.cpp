@@ -26,7 +26,6 @@ void MainWindow::updateEditorUi(const Class & c) noexcept
   mUi.classNameEdit->setText( c.name().toString() );
   mUi.headerFileNameEdit->setText( c.headerFileName().toString() );
   mUi.sourceFileNameEdit->setText( c.sourceFileName().toString() );
-  mUi.testSourceFileNameEdit->setText( c.testSourceFileName().toString() );
 
   if( c.isInNamespace() ){
     mUi.namespaceEdit->setText( c.ns().toColonSeparatedString() );
@@ -38,7 +37,14 @@ void MainWindow::updateEditorUi(const Class & c) noexcept
 
   updateHeaderFileContentUi( c.headerFileContent() );
   updateSourceFileContentUi( c.sourceFileContent() );
-  updateTestSourceFileContentUi( c.testSourceFileContent() );
+
+  if( c.hasTest() ){
+    mUi.testSourceFileNameEdit->setText( c.testSourceFileName().toString() );
+    updateTestSourceFileContentUi( c.testSourceFileContent() );
+  }else{
+    mUi.testSourceFileNameEdit->clear();
+    clearTestSourceFileContentUi();
+  }
 }
 
 void MainWindow::updateHeaderFileContentUi(const HeaderFileContent & content) noexcept
@@ -49,6 +55,11 @@ void MainWindow::updateHeaderFileContentUi(const HeaderFileContent & content) no
 void MainWindow::updateSourceFileContentUi(const SourceFileContent & content) noexcept
 {
   mUi.sourceFileEdit->setPlainText( content.toString() );
+}
+
+void MainWindow::clearTestSourceFileContentUi() noexcept
+{
+  mUi.testSourceFileEdit->clear();
 }
 
 void MainWindow::updateTestSourceFileContentUi(const TestSourceFileContent & content) noexcept
@@ -81,4 +92,7 @@ void MainWindow::setupEditorUi() noexcept
       "*****************************************************************************************/"
     )
   );
+  mEditor.setTestFrameworkType(TestFrameworkType::Catch2);
+  mEditor.setTestSourceFileAdditionalIncludes({QLatin1String("Catch2QString.h")});
+  // mEditor.setTestSourceFileAdditionalSystemIncludes({QLatin1String("cassert")});
 }

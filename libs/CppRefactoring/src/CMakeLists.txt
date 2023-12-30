@@ -21,6 +21,11 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/IncludeStatementBloc.cpp
   Mdt/CppRefactoring/HeaderFileContent.cpp
   Mdt/CppRefactoring/SourceFileContent.cpp
+  Mdt/CppRefactoring/TestFrameworkType.cpp
+  Mdt/CppRefactoring/TestFrameworkEditorData.cpp
+  Mdt/CppRefactoring/TestName.cpp
+  Mdt/CppRefactoring/Test.cpp
+  Mdt/CppRefactoring/TestBuilder.cpp
   Mdt/CppRefactoring/TestSourceFileContent.cpp
   Mdt/CppRefactoring/Class.cpp
   Mdt/CppRefactoring/ClassBuilder.cpp

@@ -11,7 +11,9 @@
 #define MDT_CPP_REFACTORING_TEST_SOURCE_FILE_CONTENT_H
 
 #include "Mdt/CppRefactoring/ClassName.h"
+#include "Mdt/CppRefactoring/TestName.h"
 #include "Mdt/CppRefactoring/TopCommentBloc.h"
+#include "Mdt/CppRefactoring/IncludeStatement.h"
 #include "Mdt/CppRefactoring/IncludeStatementBloc.h"
 #include "Mdt/CppRefactoring/Namespace.h"
 #include "mdt_cpprefactoring_export.h"
@@ -19,85 +21,6 @@
 #include <optional>
 
 namespace Mdt{ namespace CppRefactoring{
-
-  /*! \brief Test framework type
-   */
-  enum class TestFrameworkType
-  {
-    Catch2
-    // QtTestLib
-  };
-
-  /*! \brief Editor data for test framework
-   *
-   * Holds probably incomplete and invalid data.
-   * At some point, validation happens and a valid TestFramework is created.
-   *
-   * \sa TestFramework
-   * \sa TestFrameworkBuilder
-   */
-  struct TestFrameworkEditorData
-  {
-    std::optional<TestFrameworkType> type;
-
-    /*! \brief Additional headers
-     *
-     * Given the additional header like:
-     * \code
-     * Catch2QString.h
-     * Mdt/Algorithm.h
-     * \endcode
-     */
-    QStringList sourceFileAdditionalIncludes;
-
-    /*! \brief Additional system headers
-     *
-     * Given the additional header like:
-     * \code
-     * boost/algorithm/hex.hpp
-     * QString
-     * \endcode
-     */
-    QStringList sourceFileAdditionalSystemIncludes;
-
-    /*! \brief
-     */
-    bool isNull() const noexcept
-    {
-      return !type.has_value();
-    }
-  };
-
-  /*! \brief
-   */
-  class TestFramework
-  {
-   public:
-
-    TestFramework() = delete;
-
-   private:
-
-    /// TestSourceFileContent mTestSourceFileContent;
-    /// TestHeaderFileContent mTestHeaderFileContent;
-  };
-
-  /*! \brief
-   */
-  class TestFrameworkBuilder
-  {
-   public:
-
-    TestFramework makeCatch2Framework(const TestFrameworkEditorData & data);
-
-    TestFramework makeQtTestlibFramework(const TestFrameworkEditorData & data);
-  };
-
-  /*! \brief
-   */
-  class Catch2Test
-  {
-  };
 
   /*! \brief Content of a test source file
    *
@@ -114,12 +37,13 @@ namespace Mdt{ namespace CppRefactoring{
 
     TestSourceFileContent() = delete;
 
-    /*! \brief Construct a content from given class name
+    /*! \brief Construct a content from given test name and class name
      */
-    TestSourceFileContent(const ClassName & name) noexcept
-     : mClassName(name)
+    TestSourceFileContent(const TestName & name, const ClassName & className) noexcept
+     : mTestName(name),
+       mClassName(className)
     {
-      mIncludeStatementBloc.appendStatement( IncludeStatement::fromFileBaseName( name.toString() ) );
+      mIncludeStatementBloc.appendStatement( IncludeStatement::fromFileBaseName( className.toString() ) );
     }
 
     /*! \brief Set the top comment bloc
@@ -130,6 +54,31 @@ namespace Mdt{ namespace CppRefactoring{
      */
     void setNamespace(const Namespace & ns) noexcept;
 
+    /*! \brief Check if a namespace has been set
+     */
+    bool hasNamespace() const noexcept
+    {
+      return mNamespace.has_value();
+    }
+
+    /*! \brief Check if this content has a top comment bloc
+     */
+    bool hasTopCommentBloc() const noexcept
+    {
+      return mTopCommentBloc.has_value();
+    }
+
+    /*! \brief Add an include statement
+     */
+    void addIncludeStatement(const IncludeStatement & statement) noexcept;
+
+    /*! \brief Get the include statement bloc
+     */
+    const IncludeStatementBloc & includeStatementBloc() const noexcept
+    {
+      return mIncludeStatementBloc;
+    }
+
     /*! \brief Get the string representation of this content
      */
     QString toString() const noexcept;
@@ -139,6 +88,7 @@ namespace Mdt{ namespace CppRefactoring{
     QString getTopCommentBlocStringIf() const noexcept;
     QString getUsingNamespaceIf() const noexcept;
 
+    TestName mTestName;
     ClassName mClassName;
     std::optional<TopCommentBloc> mTopCommentBloc;
     IncludeStatementBloc mIncludeStatementBloc;

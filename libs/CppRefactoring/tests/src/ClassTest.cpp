@@ -23,7 +23,7 @@ TEST_CASE("fromName")
   REQUIRE( c.name().toString() == "MyClass" );
   REQUIRE( c.headerFileName().toString() == "MyClass.h" );
   REQUIRE( c.sourceFileName().toString() == "MyClass.cpp" );
-  REQUIRE( c.testSourceFileName().toString() == "MyClassTest.cpp" );
+  // REQUIRE( c.testSourceFileName().toString() == "MyClassTest.cpp" );
 }
 
 TEST_CASE("Namespace")
@@ -61,4 +61,37 @@ TEST_CASE("headerFileContent_TopCommentBloc")
 
     REQUIRE( c.headerFileContent().hasTopCommentBloc() );
   }
+}
+
+TEST_CASE("setTest")
+{
+  auto name = ClassName::fromString("MyClass");
+
+  Class c = Class::fromName(name);
+  c.setNamespace( Namespace::fromColonSeparatedString("Mdt::CppRefactoring") );
+  c.setTopCommentBloc( TopCommentBloc::fromString("// Top") );
+
+  Test test = Test::fromClassName(name);
+
+  c.setTest(test);
+
+  REQUIRE( c.hasTest() );
+  REQUIRE( c.testSourceFileName().toString() == "MyClassTest.cpp" );
+  REQUIRE( c.testSourceFileContent().hasNamespace() );
+  REQUIRE( c.testSourceFileContent().hasTopCommentBloc() );
+}
+
+TEST_CASE("setTest_thenAttributes")
+{
+  auto name = ClassName::fromString("MyClass");
+  Class c = Class::fromName(name);
+
+  Test test = Test::fromClassName(name);
+  c.setTest(test);
+  REQUIRE( c.hasTest() );
+
+  c.setNamespace( Namespace::fromColonSeparatedString("Mdt::CppRefactoring") );
+  c.setTopCommentBloc( TopCommentBloc::fromString("// Top") );
+  REQUIRE( c.testSourceFileContent().hasNamespace() );
+  REQUIRE( c.testSourceFileContent().hasTopCommentBloc() );
 }

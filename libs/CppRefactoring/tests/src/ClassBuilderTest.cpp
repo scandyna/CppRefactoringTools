@@ -67,4 +67,15 @@ TEST_CASE("makeClass")
 
     REQUIRE( c.headerFileContent().hasLibraryExport() );
   }
+
+  SECTION("with Catch2 test")
+  {
+    data.className = "MyClass";
+    data.testFrameworkData.type = TestFrameworkType::Catch2;
+    data.testFrameworkData.sourceFileAdditionalIncludes = QStringList{"Catch2QString.h"};
+
+    Class c = ClassBuilder::makeClass(data);
+
+    REQUIRE( c.hasTest() );
+  }
 }

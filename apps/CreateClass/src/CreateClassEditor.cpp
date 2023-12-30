@@ -30,6 +30,7 @@ const Class & CreateClassEditor::validClass() const noexcept
 void CreateClassEditor::setClassName(const QString & name)
 {
   mEditorData.className = name;
+  // mEditorData.testFrameworkData.testBaseName = name;
 
   /// \todo If name is valid, should change state to enable possible functions
 }
@@ -62,6 +63,21 @@ void CreateClassEditor::setLibraryBaseNameFromNamespace() noexcept
   mEditorData.libraryBaseName = ns.partList().join( QLatin1Char('_') );
 
   emit libraryBaseNameGenerated(mEditorData.libraryBaseName);
+}
+
+void CreateClassEditor::setTestFrameworkType(Mdt::CppRefactoring::TestFrameworkType type) noexcept
+{
+  mEditorData.testFrameworkData.type = type;
+}
+
+void CreateClassEditor::setTestSourceFileAdditionalIncludes(const QStringList& headers) noexcept
+{
+  mEditorData.testFrameworkData.sourceFileAdditionalIncludes = headers;
+}
+
+void CreateClassEditor::setTestSourceFileAdditionalSystemIncludes(const QStringList & headers) noexcept
+{
+  mEditorData.testFrameworkData.sourceFileAdditionalSystemIncludes = headers;
 }
 
 void CreateClassEditor::refresh() noexcept

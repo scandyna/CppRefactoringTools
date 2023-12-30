@@ -12,8 +12,10 @@
 
 #include "Mdt/CppRefactoring/ClassEditorData.h"
 #include "Mdt/CppRefactoring/Class.h"
+#include "Mdt/CppRefactoring/TestFrameworkType.h"
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <optional>
 
 /*! \brief Editor to create a class
@@ -70,6 +72,18 @@ class CreateClassEditor : public QObject
   /*! \brief Set the library base name from namespace
    */
   void setLibraryBaseNameFromNamespace() noexcept;
+
+  /*! \brief Set the test framework to use
+   */
+  void setTestFrameworkType(Mdt::CppRefactoring::TestFrameworkType type) noexcept;
+
+  /*! \brief Set the test source file additional headers
+   */
+  void setTestSourceFileAdditionalIncludes(const QStringList & headers) noexcept;
+
+  /*! \brief Set the test source file additional system headers
+   */
+  void setTestSourceFileAdditionalSystemIncludes(const QStringList & headers) noexcept;
 
   /*! \brief Refresh
    *

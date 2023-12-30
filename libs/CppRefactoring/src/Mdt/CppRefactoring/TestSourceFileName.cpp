@@ -13,13 +13,13 @@
 
 namespace Mdt{ namespace CppRefactoring{
 
-TestSourceFileName TestSourceFileName::fromClassName(const ClassName & name) noexcept
+TestSourceFileName TestSourceFileName::fromTestName(const TestName & name) noexcept
 {
   return TestSourceFileName(name);
 }
 
-TestSourceFileName::TestSourceFileName(const ClassName & className) noexcept
- : mName( className.toString() % QLatin1String("Test.cpp") )
+TestSourceFileName::TestSourceFileName(const TestName & testName) noexcept
+ : mName( testName.toString() % QLatin1String(".cpp") )
 {
 }
 

@@ -11,6 +11,8 @@
 #include "Catch2QString.h"
 #include "CreateClassEditor.h"
 
+using namespace Mdt::CppRefactoring;
+
 
 TEST_CASE("EditoHasNoValidClassByDefault")
 {
@@ -26,6 +28,7 @@ TEST_CASE("setClassName")
   editor.setClassName(" MyClass ");
 
   REQUIRE( editor.editorData().className == " MyClass " );
+  // REQUIRE( editor.editorData().testFrameworkData.testBaseName == " MyClass " );
 
   editor.refresh();
 
@@ -85,4 +88,34 @@ TEST_CASE("setLibraryBaseNameFromNamespace")
   editor.setLibraryBaseNameFromNamespace();
 
   REQUIRE( editor.editorData().libraryBaseName == "Mdt_CppRefactoring" );
+}
+
+TEST_CASE("setTestFrameworkType")
+{
+  CreateClassEditor editor;
+
+  editor.setTestFrameworkType(TestFrameworkType::Catch2);
+
+  REQUIRE( *editor.editorData().testFrameworkData.type == TestFrameworkType::Catch2 );
+}
+
+TEST_CASE("setTestSourceFileAdditionalIncludes")
+{
+  CreateClassEditor editor;
+
+  editor.setTestSourceFileAdditionalIncludes({"Catch2QString.h"});
+
+  REQUIRE( editor.editorData().testFrameworkData.sourceFileAdditionalIncludes == QStringList{"Catch2QString.h"} );
+}
+
+TEST_CASE("Catch2_test")
+{
+  CreateClassEditor editor;
+  editor.setClassName("MyClass");
+  editor.setTestFrameworkType(TestFrameworkType::Catch2);
+
+  editor.refresh();
+
+  REQUIRE( editor.hasValidClass() );
+  REQUIRE( editor.validClass().hasTest() );
 }

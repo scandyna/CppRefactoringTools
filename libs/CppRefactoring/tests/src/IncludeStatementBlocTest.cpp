@@ -58,6 +58,20 @@ TEST_CASE("updateOrAppendStatementByFileName")
 
 }
 
+TEST_CASE("containsFileRelativePath")
+{
+  IncludeStatementBloc bloc;
+  auto myClass = IncludeStatement::from_q_char_sequence("MyClass.h");
+  auto mHex = IncludeStatement::systemIncludeFrom_h_char_sequence("boost/algorithm/hex.hpp");
+
+  bloc.appendStatement(myClass);
+  bloc.appendStatement(mHex);
+
+  REQUIRE( bloc.containsFileRelativePath("MyClass.h") );
+  REQUIRE( bloc.containsFileRelativePath("boost/algorithm/hex.hpp") );
+  REQUIRE( !bloc.containsFileRelativePath("hex.hpp") );
+}
+
 TEST_CASE("toString")
 {
   IncludeStatementBloc bloc;

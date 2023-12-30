@@ -10,6 +10,7 @@
 #ifndef MDT_CPP_REFACTORING_CLASS_EDITOR_DATA_H
 #define MDT_CPP_REFACTORING_CLASS_EDITOR_DATA_H
 
+#include "Mdt/CppRefactoring/TestFrameworkEditorData.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 
@@ -30,7 +31,7 @@ namespace Mdt{ namespace CppRefactoring{
     QString topCommentBloc;
     bool useLibraryExport = false;
     QString libraryBaseName;
-    /// TestFrameworkEditorData testFrameworkData;
+    TestFrameworkEditorData testFrameworkData;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

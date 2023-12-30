@@ -14,11 +14,11 @@
 using namespace Mdt::CppRefactoring;
 
 
-TEST_CASE("fromClassName")
+TEST_CASE("fromTestName")
 {
-  auto className = ClassName::fromString("MyClass");
+  auto testName = TestName::fromBaseNameString("MyClass");
 
-  auto fileName = TestSourceFileName::fromClassName(className);
+  auto fileName = TestSourceFileName::fromTestName(testName);
 
   REQUIRE( fileName.toString() == "MyClassTest.cpp" );
 }

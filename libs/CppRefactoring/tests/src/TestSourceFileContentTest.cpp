@@ -16,8 +16,9 @@ using namespace Mdt::CppRefactoring;
 
 TEST_CASE("toString")
 {
-  auto name = ClassName::fromString("MyClass");
-  TestSourceFileContent content(name);
+  auto className = ClassName::fromString("MyClass");
+  auto testName = TestName::fromClassName(className);
+  TestSourceFileContent content(testName, className);
   QString expectedResult;
 
   SECTION("Minimal (no comment bloc, no namepsace)")

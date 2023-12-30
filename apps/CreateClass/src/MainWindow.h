@@ -36,6 +36,7 @@ class MainWindow : public QMainWindow
   void updateEditorUi(const Mdt::CppRefactoring::Class & c) noexcept;
   void updateHeaderFileContentUi(const Mdt::CppRefactoring::HeaderFileContent & content) noexcept;
   void updateSourceFileContentUi(const Mdt::CppRefactoring::SourceFileContent & content) noexcept;
+  void clearTestSourceFileContentUi() noexcept;
   void updateTestSourceFileContentUi(const Mdt::CppRefactoring::TestSourceFileContent & content) noexcept;
 
  private:

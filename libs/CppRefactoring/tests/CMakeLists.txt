@@ -69,6 +69,38 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME TestFrameworkEditorDataTest
+  TARGET testFrameworkEditorDataTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestFrameworkEditorDataTest.cpp
+)
+
+mdt_add_test(
+  NAME TestNameTest
+  TARGET testNameTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestNameTest.cpp
+)
+
+mdt_add_test(
+  NAME TestTest
+  TARGET testTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestTest.cpp
+)
+
+mdt_add_test(
+  NAME TestBuilderTest
+  TARGET testBuilderTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestBuilderTest.cpp
+)
+
+mdt_add_test(
   NAME TopCommentBlocTest
   TARGET topCommentBlocTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt

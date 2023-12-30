@@ -20,9 +20,11 @@
 #include "Mdt/CppRefactoring/LibraryExport.h"
 #include "Mdt/CppRefactoring/SourceFileContent.h"
 #include "Mdt/CppRefactoring/TestSourceFileContent.h"
+#include "Mdt/CppRefactoring/Test.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 #include <optional>
+#include <cassert>
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -73,11 +75,20 @@ namespace Mdt{ namespace CppRefactoring{
       return mSourceFileName;
     }
 
+    /*! \brief Set a test
+     */
+    void setTest(const Test & test) noexcept;
+
     /*! \brief Get the test source file name
+     *
+     * \pre this class must have a test
+     * \sa hasTest()
      */
     const TestSourceFileName & testSourceFileName() const noexcept
     {
-      return mTestSourceFileName;
+      assert( hasTest() );
+
+      return mTest->testSourceFileName();
     }
 
     /*! \brief Set the top comment bloc
@@ -102,11 +113,23 @@ namespace Mdt{ namespace CppRefactoring{
       return mSourceFileContent;
     }
 
+    /*! \brief Check if a test used
+     */
+    bool hasTest() const noexcept
+    {
+      return mTest.has_value();
+    }
+
     /*! \brief Get the test source file content
+     *
+     * \pre this class must have a test
+     * \sa hasTest()
      */
     const TestSourceFileContent & testSourceFileContent() const noexcept
     {
-      return mTestSourceFileContent;
+      assert( hasTest() );
+
+      return mTest->testSourceFileContent();
     }
 
     /*! \brief Create a class from given name
@@ -123,12 +146,12 @@ namespace Mdt{ namespace CppRefactoring{
 
     ClassName mName;
     std::optional<Namespace> mNamespace;
+    std::optional<TopCommentBloc> mTopCommentBloc;
     HeaderFileName mHeaderFileName;
     SourceFileName mSourceFileName;
-    TestSourceFileName mTestSourceFileName;
     HeaderFileContent mHeaderFileContent;
     SourceFileContent mSourceFileContent;
-    TestSourceFileContent mTestSourceFileContent;
+    std::optional<Test> mTest;
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

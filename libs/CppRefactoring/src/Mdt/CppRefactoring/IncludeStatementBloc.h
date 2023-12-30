@@ -30,6 +30,10 @@ namespace Mdt{ namespace CppRefactoring{
       return mList.empty();
     }
 
+    /*! \brief Check if this bloc contains a file
+     */
+    bool containsFileRelativePath(const QString & path) const noexcept;
+
     /*! \brief Add a statement to this bloc
      */
     void appendStatement(const IncludeStatement & statement) noexcept;

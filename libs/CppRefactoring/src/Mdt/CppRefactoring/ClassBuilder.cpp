@@ -10,6 +10,7 @@
 #include "ClassBuilder.h"
 #include "TopCommentBloc.h"
 #include "LibraryExport.h"
+#include "TestBuilder.h"
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -46,6 +47,10 @@ Class ClassBuilder::makeClass(const ClassEditorData & editorData)
   if(editorData.useLibraryExport){
     auto libraryExport = LibraryExport::fromLibraryBaseName(editorData.libraryBaseName);
     c.setLibraryExport(libraryExport);
+  }
+
+  if( !editorData.testFrameworkData.isNull() ){
+    c.setTest( TestBuilder::makeTest(editorData.testFrameworkData, name) );
   }
 
   return c;

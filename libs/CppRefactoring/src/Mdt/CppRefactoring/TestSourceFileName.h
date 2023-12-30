@@ -10,7 +10,7 @@
 #ifndef MDT_CPP_REFACTORING_TEST_SOURCE_FILE_NAME_H
 #define MDT_CPP_REFACTORING_TEST_SOURCE_FILE_NAME_H
 
-#include "Mdt/CppRefactoring/ClassName.h"
+#include "Mdt/CppRefactoring/TestName.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 
@@ -31,14 +31,14 @@ namespace Mdt{ namespace CppRefactoring{
       return mName;
     }
 
-    /*! \brief Create a file name from given class name
+    /*! \brief Create a file name from given test name
      */
     static
-    TestSourceFileName fromClassName(const ClassName & name) noexcept;
+    TestSourceFileName fromTestName(const TestName & name) noexcept;
 
    private:
 
-    TestSourceFileName(const ClassName & className) noexcept;
+    TestSourceFileName(const TestName & testName) noexcept;
 
     QString mName;
   };

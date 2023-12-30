@@ -27,6 +27,11 @@ void TestSourceFileContent::setNamespace(const Namespace & ns) noexcept
   mIncludeStatementBloc.updateOrAppendStatementByFileName(inc);
 }
 
+void TestSourceFileContent::addIncludeStatement(const IncludeStatement & statement) noexcept
+{
+  mIncludeStatementBloc.updateOrAppendStatement(statement);
+}
+
 QString TestSourceFileContent::toString() const noexcept
 {
   return getTopCommentBlocStringIf()
