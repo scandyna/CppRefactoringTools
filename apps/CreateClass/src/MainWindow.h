@@ -16,9 +16,6 @@
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "Mdt/CppRefactoring/SourceFileContent.h"
 #include "Mdt/CppRefactoring/TestSourceFileContent.h"
-
-// #include "Mdt/CppRefactoring/FileSystemStructure.h"
-
 #include "ui_MainWindow.h"
 #include <QMainWindow>
 
@@ -43,7 +40,6 @@ class MainWindow : public QMainWindow
   void clearTestSourceFileContentUi() noexcept;
   void updateTestSourceFileContentUi(const Mdt::CppRefactoring::TestSourceFileContent & content) noexcept;
   void updateFileSystemStructureUi(const EditorViewModel & model) noexcept;
-  // void updateFileSystemStructureUi(const Mdt::CppRefactoring::FileSystemStructure & fileSystemStructure) noexcept;
 
  private:
 

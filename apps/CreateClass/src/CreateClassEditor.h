@@ -15,9 +15,6 @@
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/TestFrameworkType.h"
 #include "Mdt/CppRefactoring/FileSystemEditorData.h"
-
-// #include "Mdt/CppRefactoring/FileSystemStructure.h"
-
 #include <QObject>
 #include <QString>
 #include <QStringList>

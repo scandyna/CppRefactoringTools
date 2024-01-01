@@ -67,8 +67,6 @@ void MainWindow::updateTestSourceFileContentUi(const TestSourceFileContent & con
   mUi.testSourceFileEdit->setPlainText( content.toString() );
 }
 
-/// \todo Need some class that can be null and returns empty paths in that case - FileSystemStructureViewModel ?
-
 void MainWindow::updateFileSystemStructureUi(const EditorViewModel & model) noexcept
 {
   mUi.sourceRootDirectoryPathEdit->setText( model.sourceFilesRootDirectoryAbsolutePath() );
@@ -77,15 +75,6 @@ void MainWindow::updateFileSystemStructureUi(const EditorViewModel & model) noex
   mUi.sourceFilePathEdit->setText( model.getSourceFileAbsolutePath() );
   mUi.textSourceFilePathEdit->setText( model.getTestSourceFileAbsolutePath() );
 }
-
-// void MainWindow::updateFileSystemStructureUi(const Mdt::CppRefactoring::FileSystemStructure & fileSystemStructure) noexcept
-// {
-//   // mUi.sourceRootDirectoryPathEdit->setText( fileSystemStructure.sourceFilesRootDirectoryAbsolutePath() );
-//   // mUi.TestDirectoryPathEdit->setText( fileSystemStructure.testSourceFilesDirectoryAbsolutePath() );
-//   ///mUi.headerFilePathEdit->setText( fileSystemStructure.getHeaderFileAbsolutePath() );
-//   ///mUi.sourceFilePathEdit->setText( fileSystemStructure.getSourceFileAbsolutePath() );
-//   ///mUi.textSourceFilePathEdit->setText( fileSystemStructure.getTestSourceFileAbsolutePath() );
-// }
 
 void MainWindow::setupEditorUi() noexcept
 {
