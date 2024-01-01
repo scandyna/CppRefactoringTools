@@ -108,6 +108,24 @@ TEST_CASE("setTestSourceFileAdditionalIncludes")
   REQUIRE( editor.editorData().testFrameworkData.sourceFileAdditionalIncludes == QStringList{"Catch2QString.h"} );
 }
 
+TEST_CASE("setSourceFilesRootDirectoryAbsolutePath")
+{
+  CreateClassEditor editor;
+
+  editor.setSourceFilesRootDirectoryAbsolutePath("/tmp/project/src");
+
+  REQUIRE( editor.fileSystemEditorData().sourceFilesRootDirectoryAbsolutePath == "/tmp/project/src" );
+}
+
+TEST_CASE("setTestSourceFilesDirectoryAbsolutePath")
+{
+  CreateClassEditor editor;
+
+  editor.setTestSourceFilesDirectoryAbsolutePath("/tmp/project/tests/src");
+
+  REQUIRE( editor.fileSystemEditorData().testSourceFilesDirectoryAbsolutePath == "/tmp/project/tests/src" );
+}
+
 TEST_CASE("Catch2_test")
 {
   CreateClassEditor editor;

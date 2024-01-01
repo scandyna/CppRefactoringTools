@@ -10,9 +10,14 @@
 #ifndef CREATE_CLASS_EDITOR_H
 #define CREATE_CLASS_EDITOR_H
 
+#include "EditorViewModel.h"
 #include "Mdt/CppRefactoring/ClassEditorData.h"
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/TestFrameworkType.h"
+#include "Mdt/CppRefactoring/FileSystemEditorData.h"
+
+// #include "Mdt/CppRefactoring/FileSystemStructure.h"
+
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -85,6 +90,14 @@ class CreateClassEditor : public QObject
    */
   void setTestSourceFileAdditionalSystemIncludes(const QStringList & headers) noexcept;
 
+  /*! \brief Set the absolute path to the source files directory root
+   */
+  void setSourceFilesRootDirectoryAbsolutePath(const QString & path) noexcept;
+
+  /*! \brief Set the absolute path to the test source files directory
+   */
+  void setTestSourceFilesDirectoryAbsolutePath(const QString & path) noexcept;
+
   /*! \brief Refresh
    *
    * \todo define exceptions
@@ -98,6 +111,13 @@ class CreateClassEditor : public QObject
     return mEditorData;
   }
 
+  /*! \brief Get the file system editor data
+   */
+  const Mdt::CppRefactoring::FileSystemEditorData & fileSystemEditorData() const noexcept
+  {
+    return mFileSystemEditorData;
+  }
+
  signals:
 
   /*! \brief Emitted when the class has been updated
@@ -106,10 +126,15 @@ class CreateClassEditor : public QObject
 
   void libraryBaseNameGenerated(const QString & name);
 
+  /*! \brief Emitted when the file system structure has been updated
+   */
+  void fileSystemStructureUpdated(const EditorViewModel & model);
+
  private:
 
   Mdt::CppRefactoring::ClassEditorData mEditorData;
   std::optional<Mdt::CppRefactoring::Class> mClass;
+  Mdt::CppRefactoring::FileSystemEditorData mFileSystemEditorData;
 };
 
 #endif // #ifndef CREATE_CLASS_EDITOR_H

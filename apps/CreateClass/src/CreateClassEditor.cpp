@@ -80,9 +80,29 @@ void CreateClassEditor::setTestSourceFileAdditionalSystemIncludes(const QStringL
   mEditorData.testFrameworkData.sourceFileAdditionalSystemIncludes = headers;
 }
 
+void CreateClassEditor::setSourceFilesRootDirectoryAbsolutePath(const QString& path) noexcept
+{
+  mFileSystemEditorData.sourceFilesRootDirectoryAbsolutePath = path;
+}
+
+void CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath(const QString& path) noexcept
+{
+  mFileSystemEditorData.testSourceFilesDirectoryAbsolutePath = path;
+}
+
+
 void CreateClassEditor::refresh() noexcept
 {
   mClass = ClassBuilder::makeClass(mEditorData);
 
+  /// \todo
+  /// EditorViewModel viewModel;
+
   emit classUpdated(*mClass);
+
+  if( mFileSystemEditorData.seemsComplete() ){
+    /// build file system structure
+    /// viewModel.setFileSystemStructure(fss);
+  }
+  /// emit fileSystemStructureUpdated(viewModel);
 }

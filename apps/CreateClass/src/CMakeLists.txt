@@ -3,6 +3,7 @@
 
 add_library(CreateClass STATIC
   CreateClassEditor.cpp
+  EditorViewModel.cpp
 )
 add_library(Mdt::CreateClass ALIAS CreateClass)
 

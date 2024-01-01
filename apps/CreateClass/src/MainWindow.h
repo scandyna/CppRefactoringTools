@@ -11,10 +11,14 @@
 #define MAIN_WINDOW_H
 
 #include "CreateClassEditor.h"
+#include "EditorViewModel.h"
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "Mdt/CppRefactoring/SourceFileContent.h"
 #include "Mdt/CppRefactoring/TestSourceFileContent.h"
+
+// #include "Mdt/CppRefactoring/FileSystemStructure.h"
+
 #include "ui_MainWindow.h"
 #include <QMainWindow>
 
@@ -38,6 +42,8 @@ class MainWindow : public QMainWindow
   void updateSourceFileContentUi(const Mdt::CppRefactoring::SourceFileContent & content) noexcept;
   void clearTestSourceFileContentUi() noexcept;
   void updateTestSourceFileContentUi(const Mdt::CppRefactoring::TestSourceFileContent & content) noexcept;
+  void updateFileSystemStructureUi(const EditorViewModel & model) noexcept;
+  // void updateFileSystemStructureUi(const Mdt::CppRefactoring::FileSystemStructure & fileSystemStructure) noexcept;
 
  private:
 

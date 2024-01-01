@@ -67,6 +67,26 @@ void MainWindow::updateTestSourceFileContentUi(const TestSourceFileContent & con
   mUi.testSourceFileEdit->setPlainText( content.toString() );
 }
 
+/// \todo Need some class that can be null and returns empty paths in that case - FileSystemStructureViewModel ?
+
+void MainWindow::updateFileSystemStructureUi(const EditorViewModel & model) noexcept
+{
+  mUi.sourceRootDirectoryPathEdit->setText( model.sourceFilesRootDirectoryAbsolutePath() );
+  mUi.TestDirectoryPathEdit->setText( model.testSourceFilesDirectoryAbsolutePath() );
+  mUi.headerFilePathEdit->setText( model.getHeaderFileAbsolutePath() );
+  mUi.sourceFilePathEdit->setText( model.getSourceFileAbsolutePath() );
+  mUi.textSourceFilePathEdit->setText( model.getTestSourceFileAbsolutePath() );
+}
+
+// void MainWindow::updateFileSystemStructureUi(const Mdt::CppRefactoring::FileSystemStructure & fileSystemStructure) noexcept
+// {
+//   // mUi.sourceRootDirectoryPathEdit->setText( fileSystemStructure.sourceFilesRootDirectoryAbsolutePath() );
+//   // mUi.TestDirectoryPathEdit->setText( fileSystemStructure.testSourceFilesDirectoryAbsolutePath() );
+//   ///mUi.headerFilePathEdit->setText( fileSystemStructure.getHeaderFileAbsolutePath() );
+//   ///mUi.sourceFilePathEdit->setText( fileSystemStructure.getSourceFileAbsolutePath() );
+//   ///mUi.textSourceFilePathEdit->setText( fileSystemStructure.getTestSourceFileAbsolutePath() );
+// }
+
 void MainWindow::setupEditorUi() noexcept
 {
   connect(mUi.classNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setClassName);
@@ -79,6 +99,10 @@ void MainWindow::setupEditorUi() noexcept
   connect(mUi.pbLibraryNameFromNamespace, &QPushButton::clicked, &mEditor, &CreateClassEditor::setLibraryBaseNameFromNamespace);
   connect(&mEditor, &CreateClassEditor::libraryBaseNameGenerated, mUi.libraryBaseNameEdit, &QLineEdit::setText);
 
+  connect(mUi.sourceRootDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setSourceFilesRootDirectoryAbsolutePath);
+  connect(mUi.TestDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath);
+  connect(&mEditor, &CreateClassEditor::fileSystemStructureUpdated, this, &MainWindow::updateFileSystemStructureUi);
+
   mEditor.setTopCommentBloc(
     QLatin1String(
       "// SPDX-License-Identifier: LGPL-3.0-or-later\n"
@@ -87,7 +111,7 @@ void MainWindow::setupEditorUi() noexcept
       "** MdtCppRefactoringTools\n"
       "** Tools to help C++ refactoring.\n"
       "**\n"
-      "** Copyright (C) 2023-2023 Philippe Steinmann.\n"
+      "** Copyright (C) 2023-2024 Philippe Steinmann.\n"
       "**\n"
       "*****************************************************************************************/"
     )
