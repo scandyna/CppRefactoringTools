@@ -12,36 +12,69 @@
 using namespace Mdt::CppRefactoring;
 
 
-void EditorViewModel::setFileSystemStructure(const Mdt::CppRefactoring::FileSystemStructure& fileSystemStructure) noexcept
+void EditorViewModel::setFileSystemStructure(const FileSystemStructure& fileSystemStructure) noexcept
 {
+  mFileSystemStructure = ClassFileSystemStructure(fileSystemStructure);
+}
+
+void EditorViewModel::setClass(const Class& c) noexcept
+{
+  mClass = c;
 }
 
 QString EditorViewModel::sourceFilesRootDirectoryAbsolutePath() const noexcept
 {
+  if(mFileSystemStructure){
+    return mFileSystemStructure->fileSystemStructure().sourceFilesRootDirectoryAbsolutePath();
+  }
   return QString();
 }
 
 QString EditorViewModel::headerFilesRootDirectoryAbsolutePath() const noexcept
 {
+  if(mFileSystemStructure){
+    return mFileSystemStructure->fileSystemStructure().headerFilesRootDirectoryAbsolutePath();
+  }
   return QString();
 }
 
 QString EditorViewModel::testSourceFilesDirectoryAbsolutePath() const noexcept
 {
+  if(mFileSystemStructure){
+    return mFileSystemStructure->fileSystemStructure().testSourceFilesDirectoryAbsolutePath();
+  }
   return QString();
 }
 
 QString EditorViewModel::getHeaderFileAbsolutePath() const noexcept
 {
-  return QString();
+  if(!mFileSystemStructure){
+    return QString();
+  }
+  if(!mClass){
+    return QString();
+  }
+  return mFileSystemStructure->getHeaderFileAbsolutePath(*mClass);
 }
 
 QString EditorViewModel::getSourceFileAbsolutePath() const noexcept
 {
-  return QString();
+  if(!mFileSystemStructure){
+    return QString();
+  }
+  if(!mClass){
+    return QString();
+  }
+  return mFileSystemStructure->getSourceFileAbsolutePath(*mClass);
 }
 
 QString EditorViewModel::getTestSourceFileAbsolutePath() const noexcept
 {
-  return QString();
+  if(!mFileSystemStructure){
+    return QString();
+  }
+  if(!mClass){
+    return QString();
+  }
+  return mFileSystemStructure->getTestSourceFileAbsolutePath(*mClass);
 }

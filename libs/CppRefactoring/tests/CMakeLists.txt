@@ -187,3 +187,59 @@ mdt_add_test(
   SOURCE_FILES
     src/ClassBuilderTest.cpp
 )
+
+mdt_add_test(
+  NAME FileSystemHelpersTest
+  TARGET fileSystemHelpersTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileSystemHelpersTest.cpp
+)
+
+mdt_add_test(
+  NAME SourceFilesRootDirectoryTest
+  TARGET sourceFilesRootDirectoryTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/SourceFilesRootDirectoryTest.cpp
+)
+
+mdt_add_test(
+  NAME TestSourceFilesDirectoryTest
+  TARGET testSourceFilesDirectoryTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TestSourceFilesDirectoryTest.cpp
+)
+
+mdt_add_test(
+  NAME FileSystemStructureTest
+  TARGET fileSystemStructureTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileSystemStructureTest.cpp
+)
+
+mdt_add_test(
+  NAME FileSystemEditorDataTest
+  TARGET fileSystemEditorDataTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileSystemEditorDataTest.cpp
+)
+
+mdt_add_test(
+  NAME FileSystemBuilderTest
+  TARGET fileSystemBuilderTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileSystemBuilderTest.cpp
+)
+
+mdt_add_test(
+  NAME ClassFileSystemStructureTest
+  TARGET classFileSystemStructureTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/ClassFileSystemStructureTest.cpp
+)

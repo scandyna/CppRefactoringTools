@@ -12,9 +12,3 @@
 #include "Mdt/CppRefactoring/ClassEditorData.h"
 
 using namespace Mdt::CppRefactoring;
-
-
-TEST_CASE("TestsMissing")
-{
-  REQUIRE(false);
-}

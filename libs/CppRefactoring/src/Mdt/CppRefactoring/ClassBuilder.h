@@ -13,6 +13,7 @@
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/ClassEditorData.h"
 #include "Mdt/CppRefactoring/Namespace.h"
+#include "Mdt/CppRefactoring/ClassFileSystemStructure.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QObject>
 #include <QString>

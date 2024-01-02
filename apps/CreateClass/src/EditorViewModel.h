@@ -11,7 +11,10 @@
 #define EDITOR_VIEW_MODEL_H
 
 #include "Mdt/CppRefactoring/FileSystemStructure.h"
+#include "Mdt/CppRefactoring/ClassFileSystemStructure.h"
+#include "Mdt/CppRefactoring/Class.h"
 #include <QString>
+#include <optional>
 
 /*! \brief Represents data to display in the editor UI
  *
@@ -27,6 +30,10 @@ class EditorViewModel
   /*! \brief Set the file system structure
    */
   void setFileSystemStructure(const Mdt::CppRefactoring::FileSystemStructure & fileSystemStructure) noexcept;
+
+  /*! \brief Set the class
+   */
+  void setClass(const Mdt::CppRefactoring::Class & c) noexcept;
 
   /*! \brief Get the absolute path to the source files directory
    */
@@ -52,10 +59,10 @@ class EditorViewModel
    */
   QString getTestSourceFileAbsolutePath() const noexcept;
 
-
  private:
 
-  
+  std::optional<Mdt::CppRefactoring::ClassFileSystemStructure> mFileSystemStructure;
+  std::optional<Mdt::CppRefactoring::Class> mClass;
 };
 
 #endif // #ifndef EDITOR_VIEW_MODEL_H

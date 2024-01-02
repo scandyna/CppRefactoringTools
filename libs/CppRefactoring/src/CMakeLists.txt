@@ -29,6 +29,13 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/TestSourceFileContent.cpp
   Mdt/CppRefactoring/Class.cpp
   Mdt/CppRefactoring/ClassBuilder.cpp
+  Mdt/CppRefactoring/FileSystemHelpers.cpp
+  Mdt/CppRefactoring/SourceFilesRootDirectory.cpp
+  Mdt/CppRefactoring/TestSourceFilesDirectory.cpp
+  Mdt/CppRefactoring/FileSystemEditorData.cpp
+  Mdt/CppRefactoring/FileSystemStructure.cpp
+  Mdt/CppRefactoring/FileSystemBuilder.cpp
+  Mdt/CppRefactoring/ClassFileSystemStructure.cpp
 )
 add_library(Mdt::CppRefactoring ALIAS Mdt_CppRefactoring)
 

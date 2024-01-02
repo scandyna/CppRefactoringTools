@@ -14,92 +14,12 @@
 #include "Mdt/CppRefactoring/SourceFileName.h"
 #include "Mdt/CppRefactoring/TestSourceFileName.h"
 #include "Mdt/CppRefactoring/DirectoryRelativePath.h"
+#include "Mdt/CppRefactoring/SourceFilesRootDirectory.h"
+#include "Mdt/CppRefactoring/TestSourceFilesDirectory.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QString>
 
 namespace Mdt{ namespace CppRefactoring{
-
-  /// In FileSystemHelpers
-  
-  
-  
-  /*! \brief Check if a path refers to an existing directory
-   *
-   * \todo Make shure to test empty path and path without dir sep, see QDir for why !
-   * \note relative path is accepted
-   */
-  bool isValidPathToExistingDirectory(const QString & path) noexcept;
-
-  /*! \brief Source files root directory
-   */
-  class SourceFilesRootDirectory
-  {
-   public:
-
-    SourceFilesRootDirectory() = delete;
-
-    /*! \brief Get the absolute path to this directory
-     */
-    QString absolutePath() const noexcept
-    {
-    }
-
-    /*! \brief Check if given path is valid
-     *
-     * Returns true if given path refers to an existing directory.
-     * \sa isValidPathToExistingDirectory()
-     */
-    static
-    bool isValidExistingPath(const QString & path) noexcept;
-
-    /*! \brief Create a directory from existing path
-     *
-     */
-    static
-    SourceFilesRootDirectory fromExistingPath(const QString & path) noexcept;
-  };
-
-  /*! \brief Source files directory
-   */
-  class TestSourceFilesDirectory
-  {
-   public:
-
-    TestSourceFilesDirectory() = delete;
-
-    /*! \brief Get the absolute path to this directory
-     */
-    QString absolutePath() const noexcept
-    {
-    }
-
-    /*! \brief Check if given path is valid
-     *
-     * Returns true if given path refers to an existing directory.
-     * \sa isValidPathToExistingDirectory()
-     */
-    static
-    bool isValidExistingPath(const QString & path) noexcept;
-
-    /*! \brief Create a directory from existing path
-     *
-     */
-    static
-    TestSourceFilesDirectory fromExistingPath(const QString & path) noexcept;
-  };
-
-
-  /*! \brief File system builder
-   */
-  class FileSystemBuilder
-  {
-   public:
-
-    /*! \brief Make a file system structure for a class
-     */
-    // static
-    // FileSystemStructure makeStructure(const FileSystemEditorData & data);
-  };
 
   /*! \brief Request to create a class
    */
@@ -155,6 +75,8 @@ namespace Mdt{ namespace CppRefactoring{
    *  |-project
    *     |-...
    * \endcode
+   *
+   * \sa ClassFileSystemStructure
    */
   class MDT_CPPREFACTORING_EXPORT FileSystemStructure
   {
@@ -186,55 +108,30 @@ namespace Mdt{ namespace CppRefactoring{
     QString testSourceFilesDirectoryAbsolutePath() const noexcept;
 
     /*! \brief Get the absolute path to the source file
-     *
-     * \todo requiring args seems Nok
      */
-    QString getSourceFileAbsolutePath(const DirectoryRelativePath & relativePath, const SourceFileName & name) const noexcept;
+    // QString getSourceFileAbsolutePath(const DirectoryRelativePath & relativePath, const SourceFileName & name) const noexcept;
 
     /*! \brief Get the absolute path to the source file
-     *
-     * \todo requiring args seems Nok
      */
-    QString getSourceFileAbsolutePath(const SourceFileName & name) const noexcept;
+    // QString getSourceFileAbsolutePath(const SourceFileName & name) const noexcept;
 
     /*! \brief Get the absolute path to the header file
-     *
-     * \todo requiring args seems Nok
      */
-    QString getHeaderFileAbsolutePath(const DirectoryRelativePath & relativePath, const HeaderFileName & name) const noexcept;
+    // QString getHeaderFileAbsolutePath(const DirectoryRelativePath & relativePath, const HeaderFileName & name) const noexcept;
 
     /*! \brief Get the absolute path to the header file
-     *
-     * \todo requiring args seems Nok
      */
-    QString getHeaderFileAbsolutePath(const HeaderFileName & name) const noexcept;
+    // QString getHeaderFileAbsolutePath(const HeaderFileName & name) const noexcept;
 
     /*! \brief Get the absolute path to the test source file
-     *
-     * \todo requiring args seems Nok
      */
-    QString getTestSourceFileAbsolutePath(const TestSourceFileName & name) const noexcept;
+    // QString getTestSourceFileAbsolutePath(const TestSourceFileName & name) const noexcept;
 
   private:
 
-    
+    SourceFilesRootDirectory mSourceFilesRootDirectory;
+    TestSourceFilesDirectory mTestSourceFilesDirectory;
   };
-
-  // /*! \brief Represents a FileSystemStructure that can be empty
-  //  *
-  //  * \todo Could probably not dispplay file paths..
-  //  *
-  //  * \todo Maybe, fileSystemStructure should not know about file paths ?
-  //  * Hmm... yes, as helpers to build the paths
-  //  */
-  // class MDT_CPPREFACTORING_EXPORT FileSystemStructureViewModel
-  // {
-  //  public:
-  // 
-  //   /*! \brief Construct an empty structure
-  //    */
-  //   FileSystemStructureViewModel() noexcept = default;
-  // };
 
 }} // namespace Mdt{ namespace CppRefactoring{
 
