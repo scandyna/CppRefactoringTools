@@ -89,10 +89,6 @@ namespace Mdt{ namespace CppRefactoring{
     FileSystemStructure(const SourceFilesRootDirectory & sourceFilesRootDirectory,
                         const TestSourceFilesDirectory & testSourceFilesDirectory) noexcept;
 
-    // /*! \brief Set the relative path to the source files
-    //  */
-    // void setSourceFilesRelativePath(const DirectoryRelativePath & path) noexcept;
-
     /*! \brief Get the absolute path to the source files directory
      */
     QString sourceFilesRootDirectoryAbsolutePath() const noexcept;
@@ -106,26 +102,6 @@ namespace Mdt{ namespace CppRefactoring{
     /*! \brief Get the absolute path to the tests source files directory
      */
     QString testSourceFilesDirectoryAbsolutePath() const noexcept;
-
-    /*! \brief Get the absolute path to the source file
-     */
-    // QString getSourceFileAbsolutePath(const DirectoryRelativePath & relativePath, const SourceFileName & name) const noexcept;
-
-    /*! \brief Get the absolute path to the source file
-     */
-    // QString getSourceFileAbsolutePath(const SourceFileName & name) const noexcept;
-
-    /*! \brief Get the absolute path to the header file
-     */
-    // QString getHeaderFileAbsolutePath(const DirectoryRelativePath & relativePath, const HeaderFileName & name) const noexcept;
-
-    /*! \brief Get the absolute path to the header file
-     */
-    // QString getHeaderFileAbsolutePath(const HeaderFileName & name) const noexcept;
-
-    /*! \brief Get the absolute path to the test source file
-     */
-    // QString getTestSourceFileAbsolutePath(const TestSourceFileName & name) const noexcept;
 
   private:
 
