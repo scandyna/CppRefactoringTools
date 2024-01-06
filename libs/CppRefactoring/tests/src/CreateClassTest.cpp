@@ -17,19 +17,6 @@
 
 using namespace Mdt::CppRefactoring;
 
-// struct TemporaryFileSystemStructure
-// {
-//   QTemporaryDir sourceFilesRootTemporaryDir;
-//   QTemporaryDir testSourceFilesRootTemporaryDir;
-//   SourceFilesRootDirectory sourceFilesRootDirectory;
-//   TestSourceFilesDirectory testSourceFilesDirectory;
-// 
-//   TemporaryFileSystemStructure()
-//    : sourceFilesRootDirectory( SourceFilesRootDirectory::fromExistingPath( sourceFilesRootTemporaryDir.path() ) )
-//   {
-//   }
-// };
-
 FileSystemStructure fileSystemStructureFromSourcesAndTestDirs(const QTemporaryDir & sourcesDir, const QTemporaryDir & testsDir)
 {
   auto sourceFilesRootDirectory = SourceFilesRootDirectory::fromExistingPath( sourcesDir.path() );
@@ -39,12 +26,31 @@ FileSystemStructure fileSystemStructureFromSourcesAndTestDirs(const QTemporaryDi
 }
 
 
+TEST_CASE("shouldAskOverwriteConfirmation")
+{
+  CHECK( CreateClass::shouldAskOverwriteConfirmation(CheckIsExistingFileResponse::IsExistingFile, CreateClassFileOverwriteBehavior::AskConfirmation) );
+  CHECK( !CreateClass::shouldAskOverwriteConfirmation(CheckIsExistingFileResponse::IsExistingFile, CreateClassFileOverwriteBehavior::Fail) );
+  CHECK( !CreateClass::shouldAskOverwriteConfirmation(CheckIsExistingFileResponse::IsDirectory, CreateClassFileOverwriteBehavior::AskConfirmation) );
+  CHECK( !CreateClass::shouldAskOverwriteConfirmation(CheckIsExistingFileResponse::NonExisting, CreateClassFileOverwriteBehavior::AskConfirmation) );
+}
+
+TEST_CASE("shouldThrowError")
+{
+  CHECK( CreateClass::shouldThrowError(CheckIsExistingFileResponse::IsDirectory, CreateClassFileOverwriteBehavior::AskConfirmation) );
+  CHECK( CreateClass::shouldThrowError(CheckIsExistingFileResponse::IsExistingFile, CreateClassFileOverwriteBehavior::Fail) );
+  CHECK( !CreateClass::shouldThrowError(CheckIsExistingFileResponse::IsExistingFile, CreateClassFileOverwriteBehavior::Overwrite) );
+  CHECK( !CreateClass::shouldThrowError(CheckIsExistingFileResponse::NonExisting, CreateClassFileOverwriteBehavior::Fail) );
+}
+
+TEST_CASE("isOkToWrite")
+{
+  CHECK( CreateClass::isOkToWrite(CheckIsExistingFileResponse::NonExisting, CreateClassFileOverwriteBehavior::Fail) );
+  CHECK( CreateClass::isOkToWrite(CheckIsExistingFileResponse::IsExistingFile, CreateClassFileOverwriteBehavior::Overwrite) );
+  CHECK( !CreateClass::isOkToWrite(CheckIsExistingFileResponse::IsDirectory, CreateClassFileOverwriteBehavior::AskConfirmation) );
+}
+
 TEST_CASE("execute")
 {
-  // TemporaryFileSystemStructure tfss;
-  // REQUIRE( tfss.sourceFilesRootTemporaryDir.isValid() );
-  // REQUIRE( tfss.testSourceFilesRootTemporaryDir.isValid() );
-
   QTemporaryDir sourcesDir;
   QTemporaryDir testSourcesDir;
   REQUIRE( sourcesDir.isValid() );
@@ -54,10 +60,11 @@ TEST_CASE("execute")
 
   const auto className = ClassName::fromString("MyClass");
   auto c = Class::fromName(className);
+  c.setNamespace( Namespace::fromColonSeparatedString("Mdt::CppRefactoring") );
   c.setTest( Test::fromClassName(className) );
 
   CreateClass useCase;
-  CreateClassRequest request{c, fss, FileOverwriteBehavior::Fail};
+  CreateClassRequest request{c, fss, CreateClassFileOverwriteBehavior::Fail};
 
   CreateClassResponse response = useCase.execute(request);
 
