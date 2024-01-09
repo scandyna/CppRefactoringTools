@@ -5,6 +5,7 @@ include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
 add_library(Mdt_CppRefactoring
+  Mdt/CppRefactoring/QRuntimeError.cpp
   Mdt/CppRefactoring/Algorithm.cpp
   Mdt/CppRefactoring/DirectoryRelativePath.cpp
   Mdt/CppRefactoring/ClassEditorData.cpp
@@ -36,6 +37,10 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/FileSystemStructure.cpp
   Mdt/CppRefactoring/FileSystemBuilder.cpp
   Mdt/CppRefactoring/ClassFileSystemStructure.cpp
+  Mdt/CppRefactoring/FileOverwriteBehavior.cpp
+  Mdt/CppRefactoring/FileWriteError.cpp
+  Mdt/CppRefactoring/FileWriter.cpp
+  Mdt/CppRefactoring/CreateClass.cpp
 )
 add_library(Mdt::CppRefactoring ALIAS Mdt_CppRefactoring)
 

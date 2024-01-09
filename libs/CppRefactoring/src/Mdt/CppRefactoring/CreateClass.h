@@ -17,6 +17,7 @@
 #include "Mdt/CppRefactoring/SourceFileContent.h"
 #include "Mdt/CppRefactoring/TestSourceFileContent.h"
 #include "Mdt/CppRefactoring/FileWriter.h"
+#include "Mdt/CppRefactoring/QRuntimeError.h"
 #include "mdt_cpprefactoring_export.h"
 #include <QObject>
 #include <QString>
@@ -53,45 +54,30 @@ namespace Mdt{ namespace CppRefactoring{
     bool isAskingToOverwriteHeaderFile = false;
     bool isAskingToOverwriteSourceFile = false;
     bool isAskingToOverwriteTestSourceFile = false;
-
-    // bool isAskingToOverwriteFile = false;
-
     QString headerFileAbsolutePath;
     QString sourceFileAbsolutePath;
     QString testSourceFileAbsolutePath;
-
-   //  bool isSuccess() const noexcept
-   //  {
-   //    return mIsSuccess;
-   //  }
 
     bool isAskingToOverwriteFile() const noexcept
     {
       return isAskingToOverwriteHeaderFile || isAskingToOverwriteSourceFile || isAskingToOverwriteTestSourceFile;
     }
-
-   private:
-
-    // bool mIsSuccess = false;
-    // bool mIsAskingToOverwriteHeaderFile = false;
-    // bool mIsAskingToOverwriteSourceFile = false;
-    // bool mIsAskingToOverwriteTestSourceFile = false;
   };
 
-  /*! \brief Error thrown when writing a file fails
+  /*! \brief Error thrown when creating a class fails
    */
-  class FileWriteError
+  class MDT_CPPREFACTORING_EXPORT CreateClassError : public QRuntimeError
   {
    public:
 
-    /*! \brief Check if this error is due to an attempt to overwrite a file
-     *
-     * Returns true if a file already exists,
-     * and it was requested to fail on that case.
+    /*! \brief Constructor
      */
-    // bool isOverwriteFailure() const noexcept
-    // {
-    // }
+    explicit
+    CreateClassError(const QString & text)
+     : QRuntimeError(text)
+    {
+    }
+
   };
 
   /*! \brief Create a class
@@ -109,7 +95,8 @@ namespace Mdt{ namespace CppRefactoring{
 
     /*! \brief Create a class for given request
      *
-     * \todo define and implement exceptions
+     * \exception CreateClassError
+     * \exception WriteFileError
      */
     CreateClassResponse execute(const CreateClassRequest & request);
 
@@ -130,6 +117,8 @@ namespace Mdt{ namespace CppRefactoring{
     void checkFileExistence(const QString & path, CreateClassFileOverwriteBehavior overwriteBehavior, bool & askToOverwriteFlag) const;
 
     void writeHeaderFile(const HeaderFileContent & content, const QString & path, FileOverwriteBehavior overwriteBehavior);
+    void writeSourceFile(const SourceFileContent & content, const QString & path, FileOverwriteBehavior overwriteBehavior);
+    void writeTestSourceFile(const TestSourceFileContent & content, const QString & path, FileOverwriteBehavior overwriteBehavior);
   };
 
 }} // namespace Mdt{ namespace CppRefactoring{

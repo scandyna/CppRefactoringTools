@@ -21,21 +21,6 @@
 
 namespace Mdt{ namespace CppRefactoring{
 
-  /*! \brief Request to create a class
-   */
-  struct CreateClassRequest
-  {
-    // Class c;
-    // FileSystemStructure fileSystemStructure;
-    bool overwriteIfExists = false;
-  };
-
-  /*! \brief Create a class
-   */
-  class CreateClass
-  {
-  };
-
   /*! \brief File system structure
    *
    * This structure holds information for a class, or similar entity.

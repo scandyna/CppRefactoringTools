@@ -243,3 +243,35 @@ mdt_add_test(
   SOURCE_FILES
     src/ClassFileSystemStructureTest.cpp
 )
+
+mdt_add_test(
+  NAME FileWriterTest
+  TARGET fileWriterTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileWriterTest.cpp
+)
+
+mdt_add_test(
+  NAME FileWriterErrorTest
+  TARGET fileWriterErrorTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileWriterErrorTest.cpp
+)
+
+mdt_add_test(
+  NAME CreateClassTest
+  TARGET createClassTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/CreateClassTest.cpp
+)
+
+mdt_add_test(
+  NAME CreateClassErrorTest
+  TARGET createClassErrorTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/CreateClassErrorTest.cpp
+)

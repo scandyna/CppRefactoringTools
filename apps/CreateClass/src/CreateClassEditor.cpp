@@ -11,6 +11,7 @@
 #include "Mdt/CppRefactoring/ClassBuilder.h"
 #include "Mdt/CppRefactoring/Namespace.h"
 #include "Mdt/CppRefactoring/FileSystemBuilder.h"
+#include "Mdt/CppRefactoring/CreateClass.h"
 #include <cassert>
 
 using namespace Mdt::CppRefactoring;
@@ -92,7 +93,7 @@ void CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath(const QString& p
 }
 
 
-void CreateClassEditor::refresh() noexcept
+void CreateClassEditor::refresh()
 {
   EditorViewModel viewModel;
 
@@ -103,9 +104,22 @@ void CreateClassEditor::refresh() noexcept
   emit classUpdated(*mClass);
 
   if( mFileSystemEditorData.seemsComplete() ){
-    FileSystemStructure fss = FileSystemBuilder::makeStructure(mFileSystemEditorData);
-    viewModel.setFileSystemStructure(fss);
+    mFileSystemStructure = FileSystemBuilder::makeStructure(mFileSystemEditorData);
+    viewModel.setFileSystemStructure(*mFileSystemStructure);
   }
 
   emit fileSystemStructureUpdated(viewModel);
+}
+
+CreateClassResponse CreateClassEditor::createClass(CreateClassFileOverwriteBehavior overwriteBehavior)
+{
+  refresh();
+
+  assert( mClass.has_value() );
+  assert( mFileSystemStructure.has_value() );
+
+  CreateClassRequest request{*mClass, *mFileSystemStructure, overwriteBehavior};
+  CreateClass useCase;
+
+  return useCase.execute(request);
 }

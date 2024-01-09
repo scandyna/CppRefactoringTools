@@ -10,11 +10,6 @@
 #include "CreateClass.h"
 #include "ClassFileSystemStructure.h"
 
-// #include "FileWriter.h"
-#include <QFile>
-
-#include <QDebug>
-
 namespace Mdt{ namespace CppRefactoring{
 
 CreateClass::CreateClass(QObject *parent) noexcept
@@ -33,19 +28,13 @@ CreateClassResponse CreateClass::execute(const CreateClassRequest & request)
   FileOverwriteBehavior fileOverwriteBehavior = fileOverwriteBehaviorFromRequest(request);
 
   writeHeaderFile(request.c.headerFileContent(), response.headerFileAbsolutePath, fileOverwriteBehavior);
-  
+  writeSourceFile(request.c.sourceFileContent(), response.sourceFileAbsolutePath, fileOverwriteBehavior);
 
   if( !response.testSourceFileAbsolutePath.isEmpty() ){
-    
+    writeTestSourceFile(request.c.testSourceFileContent(), response.testSourceFileAbsolutePath, fileOverwriteBehavior);
   }
 
-  // try{
-  //   writeHeaderFile(request.c.headerFileContent(), headerFilePath, request.overwriteBehavior);
-  // }catch(const FileWriteError & error){
-  //   if( error.isOverwriteFailure() ){
-  //     response.isAskingToOverwriteFile = true;
-  //   }
-  // }
+  response.isSuccess = true;
 
   return response;
 }
@@ -112,10 +101,6 @@ CreateClassResponse CreateClass::getFilePathsAndCheckFilesExistence(const Create
     response.testSourceFileAbsolutePath = fss.getTestSourceFileAbsolutePath(request.c);
   }
 
-  qDebug() << "header file: " << response.headerFileAbsolutePath;
-  qDebug() << "source file: " << response.sourceFileAbsolutePath;
-  qDebug() << "test source file: " << response.testSourceFileAbsolutePath;
-
   checkFileExistence(response.headerFileAbsolutePath, request.overwriteBehavior, response.isAskingToOverwriteHeaderFile);
   checkFileExistence(response.sourceFileAbsolutePath, request.overwriteBehavior, response.isAskingToOverwriteSourceFile);
 
@@ -128,41 +113,59 @@ CreateClassResponse CreateClass::getFilePathsAndCheckFilesExistence(const Create
 
 void CreateClass::checkFileExistence(const QString & path, CreateClassFileOverwriteBehavior overwriteBehavior, bool & askToOverwriteFlag) const
 {
-  /// Check if header file exists
-  /// - If is dir - error
-  /// - If not exists - Ok
-  /// - If exists:
-  ///   - If Fail - error
-  ///   - If AskConfirmation - Flag
-  ///   - If Overwrite - Ok
-
   const CheckIsExistingFileResponse ieResponse = FileWriter::checkIsExistingFile(path);
-  
+
   if( shouldThrowError(ieResponse, overwriteBehavior) ){
     if(ieResponse == CheckIsExistingFileResponse::IsDirectory){
-      /// \todo throw
+      const QString msg = tr("can't create file '%1' because it is a directory")
+                          .arg(path);
+      throw CreateClassError(msg);
     }
     if(overwriteBehavior == CreateClassFileOverwriteBehavior::Fail){
       // Here file exists
-      /// \todo throw
+      const QString msg = tr("can't create file '%1' because it exists and overwrit behavior is to fail in that case")
+                          .arg(path);
+      throw CreateClassError(msg);
     }
   }
   assert( !shouldThrowError(ieResponse, overwriteBehavior) );
 
   askToOverwriteFlag = shouldAskOverwriteConfirmation(ieResponse, overwriteBehavior);
+  if(askToOverwriteFlag){
+    return;
+  }
 
   assert( isOkToWrite(ieResponse, overwriteBehavior) );
 }
 
 void CreateClass::writeHeaderFile(const HeaderFileContent & content, const QString & path, FileOverwriteBehavior overwriteBehavior)
 {
-  /// Check exisence of given path
-  /// - If is existing dir, fail
-  /// - If is existing file:
-  ///   - case overwriteBehavior is Fail: throw with error
-  ///   - case overwriteBehavior is Ask: throw with ??
-  
+  FileWriter writer;
 
+  writer.open(path, overwriteBehavior);
+  writer.writeContent( content.toString() );
+
+  writer.close();
+}
+
+void CreateClass::writeSourceFile(const SourceFileContent & content, const QString & path, FileOverwriteBehavior overwriteBehavior)
+{
+  FileWriter writer;
+
+  writer.open(path, overwriteBehavior);
+  writer.writeContent( content.toString() );
+
+  writer.close();
+}
+
+void CreateClass::writeTestSourceFile(const TestSourceFileContent & content, const QString & path, FileOverwriteBehavior overwriteBehavior)
+{
+  FileWriter writer;
+
+  writer.open(path, overwriteBehavior);
+  writer.writeContent( content.toString() );
+
+  writer.close();
 }
 
 }} // namespace Mdt{ namespace CppRefactoring{

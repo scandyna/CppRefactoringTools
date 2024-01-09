@@ -10,20 +10,13 @@
 #include "Mdt/CppRefactoring/CreateClass.h"
 #include "Mdt/CppRefactoring/SourceFilesRootDirectory.h"
 #include "Mdt/CppRefactoring/TestSourceFilesDirectory.h"
+#include "CreateClassTestCommon.h"
 #include "catch2/catch.hpp"
 #include "Catch2QString.h"
 #include <QTemporaryDir>
 #include <QFileInfo>
 
 using namespace Mdt::CppRefactoring;
-
-FileSystemStructure fileSystemStructureFromSourcesAndTestDirs(const QTemporaryDir & sourcesDir, const QTemporaryDir & testsDir)
-{
-  auto sourceFilesRootDirectory = SourceFilesRootDirectory::fromExistingPath( sourcesDir.path() );
-  auto testSourceFilesDirectory = TestSourceFilesDirectory::fromExistingPath( testsDir.path() );
-
-  return FileSystemStructure(sourceFilesRootDirectory, testSourceFilesDirectory);
-}
 
 
 TEST_CASE("shouldAskOverwriteConfirmation")
@@ -68,6 +61,8 @@ TEST_CASE("execute")
 
   CreateClassResponse response = useCase.execute(request);
 
+  REQUIRE( response.isSuccess );
+
   QFileInfo headerFile = response.headerFileAbsolutePath;
   QFileInfo sourceFile = response.sourceFileAbsolutePath;
   QFileInfo testSourceFile = response.testSourceFileAbsolutePath;
@@ -78,4 +73,25 @@ TEST_CASE("execute")
   REQUIRE( sourceFile.isFile() );
   REQUIRE( testSourceFile.exists() );
   REQUIRE( testSourceFile.isFile() );
+
+  SECTION("Overwrite existing files")
+  {
+    request.overwriteBehavior = CreateClassFileOverwriteBehavior::Overwrite;
+
+    response = useCase.execute(request);
+
+    REQUIRE( response.isSuccess );
+  }
+
+  SECTION("Ask confirmation then overwrite")
+  {
+    request.overwriteBehavior = CreateClassFileOverwriteBehavior::AskConfirmation;
+    response = useCase.execute(request);
+    REQUIRE( !response.isSuccess );
+    REQUIRE( response.isAskingToOverwriteFile() );
+
+    request.overwriteBehavior = CreateClassFileOverwriteBehavior::Overwrite;
+    response = useCase.execute(request);
+    REQUIRE( response.isSuccess );
+  }
 }

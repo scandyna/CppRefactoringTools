@@ -15,6 +15,12 @@
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/TestFrameworkType.h"
 #include "Mdt/CppRefactoring/FileSystemEditorData.h"
+#include "Mdt/CppRefactoring/FileSystemStructure.h"
+
+#include "Mdt/CppRefactoring/CreateClass.h"
+/// #include "Mdt/CppRefactoring/CreateClassRequest.h"
+/// #include "Mdt/CppRefactoring/CreateClassResponse.h"
+
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -99,7 +105,13 @@ class CreateClassEditor : public QObject
    *
    * \todo define exceptions
    */
-  void refresh() noexcept;
+  void refresh();
+
+  /*! \brief Create the class
+   *
+   * \todo define exceptions
+   */
+  Mdt::CppRefactoring::CreateClassResponse createClass(Mdt::CppRefactoring::CreateClassFileOverwriteBehavior overwriteBehavior);
 
   /*! \brief Get the editor data
    */
@@ -132,6 +144,7 @@ class CreateClassEditor : public QObject
   Mdt::CppRefactoring::ClassEditorData mEditorData;
   std::optional<Mdt::CppRefactoring::Class> mClass;
   Mdt::CppRefactoring::FileSystemEditorData mFileSystemEditorData;
+  std::optional<Mdt::CppRefactoring::FileSystemStructure> mFileSystemStructure;
 };
 
 #endif // #ifndef CREATE_CLASS_EDITOR_H

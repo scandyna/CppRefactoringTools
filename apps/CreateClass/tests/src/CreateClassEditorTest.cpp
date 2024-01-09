@@ -10,6 +10,7 @@
 #include "catch2/catch.hpp"
 #include "Catch2QString.h"
 #include "CreateClassEditor.h"
+#include <QTemporaryDir>
 
 using namespace Mdt::CppRefactoring;
 
@@ -124,6 +125,31 @@ TEST_CASE("setTestSourceFilesDirectoryAbsolutePath")
   editor.setTestSourceFilesDirectoryAbsolutePath("/tmp/project/tests/src");
 
   REQUIRE( editor.fileSystemEditorData().testSourceFilesDirectoryAbsolutePath == "/tmp/project/tests/src" );
+}
+
+TEST_CASE("createClass")
+{
+  QTemporaryDir sourceRootDir;
+  QTemporaryDir testSourceRootDir;
+  REQUIRE( sourceRootDir.isValid() );
+  REQUIRE( testSourceRootDir.isValid() );
+
+  CreateClassEditor editor;
+  editor.setClassName("MyClass");
+  editor.setNamespace("Mdt::CppRefactoring");
+  editor.setTestFrameworkType(TestFrameworkType::Catch2);
+  editor.setSourceFilesRootDirectoryAbsolutePath( sourceRootDir.path() );
+  editor.setTestSourceFilesDirectoryAbsolutePath( testSourceRootDir.path() );
+
+  CreateClassResponse response = editor.createClass(CreateClassFileOverwriteBehavior::Fail);
+  REQUIRE( response.isSuccess );
+
+  response = editor.createClass(CreateClassFileOverwriteBehavior::AskConfirmation);
+  REQUIRE( !response.isSuccess );
+  REQUIRE( response.isAskingToOverwriteFile() );
+
+  response = editor.createClass(CreateClassFileOverwriteBehavior::Overwrite);
+  REQUIRE( response.isSuccess );
 }
 
 TEST_CASE("Catch2_test")

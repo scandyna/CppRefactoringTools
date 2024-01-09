@@ -16,8 +16,14 @@
 #include "Mdt/CppRefactoring/HeaderFileContent.h"
 #include "Mdt/CppRefactoring/SourceFileContent.h"
 #include "Mdt/CppRefactoring/TestSourceFileContent.h"
+#include "Mdt/CppRefactoring/QRuntimeError.h"
+
+/// #include "Mdt/CppRefactoring/CreateClassResponse.h"
+#include "Mdt/CppRefactoring/CreateClass.h"
+
 #include "ui_MainWindow.h"
 #include <QMainWindow>
+#include <QStringList>
 
 /*! \brief Main window
  */
@@ -41,9 +47,20 @@ class MainWindow : public QMainWindow
   void updateTestSourceFileContentUi(const Mdt::CppRefactoring::TestSourceFileContent & content) noexcept;
   void updateFileSystemStructureUi(const EditorViewModel & model) noexcept;
 
+ private slots:
+
+  void createClass() noexcept;
+
  private:
 
   void setupEditorUi() noexcept;
+
+  bool askConfirmationToOverwriteFile(const Mdt::CppRefactoring::CreateClassResponse & response) noexcept;
+  void displaySuccessMessage(const Mdt::CppRefactoring::Class & c, const Mdt::CppRefactoring::CreateClassResponse & resonse) noexcept;
+  void displayErrorMessage(const Mdt::CppRefactoring::Class & c, const Mdt::CppRefactoring::QRuntimeError & error) noexcept;
+
+  static
+  QString getFilePathListFromResponse(const Mdt::CppRefactoring::CreateClassResponse & response) noexcept;
 
   CreateClassEditor mEditor;
   Ui::MainWindow mUi;
