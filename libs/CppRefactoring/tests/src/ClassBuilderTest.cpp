@@ -21,6 +21,13 @@ TEST_CASE("makeClassName")
   REQUIRE( name.toString() == "MyClass" );
 }
 
+TEST_CASE("makeNamespaceFromColonSeparatedString")
+{
+  Namespace ns = ClassBuilder::makeNamespaceFromColonSeparatedString("Mdt::CppRefactoring");
+
+  REQUIRE( ns.toColonSeparatedString() == "Mdt::CppRefactoring" );
+}
+
 TEST_CASE("makeClass")
 {
   ClassEditorData data;

@@ -19,3 +19,11 @@ mdt_add_test(
   SOURCE_FILES
     src/CreateClassEditorTest.cpp
 )
+
+mdt_add_test(
+  NAME CL_CreateClassEditorErrorTest
+  TARGET cl_CreateClassEditorErrorTest
+  DEPENDENCIES Mdt::CreateClass Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/CreateClassEditorErrorTest.cpp
+)

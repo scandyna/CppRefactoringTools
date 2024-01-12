@@ -80,6 +80,24 @@ void MainWindow::updateFileSystemStructureUi(const EditorViewModel & model) noex
   mUi.textSourceFilePathEdit->setText( model.getTestSourceFileAbsolutePath() );
 }
 
+void MainWindow::setLibraryBaseNameFromNamespace() noexcept
+{
+  try{
+    mEditor.setLibraryBaseNameFromNamespace();
+  }catch(const QRuntimeError & error){
+    displayErrorMessage(error);
+  }
+}
+
+void MainWindow::refresh() noexcept
+{
+  try{
+    mEditor.refresh();
+  }catch(const QRuntimeError & error){
+    displayErrorMessage(error);
+  }
+}
+
 void MainWindow::createClass() noexcept
 {
   try{
@@ -100,7 +118,7 @@ void MainWindow::createClass() noexcept
       return;
     }
   }catch(const QRuntimeError & error){
-    displayErrorMessage(mEditor.validClass(), error);
+    displayErrorMessage(error);
   }
 }
 
@@ -108,13 +126,13 @@ void MainWindow::setupEditorUi() noexcept
 {
   connect(mUi.classNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setClassName);
   connect(mUi.namespaceEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setNamespace);
-  connect(mUi.action_Update, &QAction::triggered, &mEditor, &CreateClassEditor::refresh);
+  connect(mUi.action_Update, &QAction::triggered, this, &MainWindow::refresh);
   connect(mUi.action_Create, &QAction::triggered, this, &MainWindow::createClass);
   connect(&mEditor, &CreateClassEditor::classUpdated, this, &MainWindow::updateEditorUi);
 
   connect(mUi.cbUseLibraryExport, &QCheckBox::toggled, &mEditor, &CreateClassEditor::setUseLibraryExport);
   connect(mUi.libraryBaseNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setLibraryBaseName);
-  connect(mUi.pbLibraryNameFromNamespace, &QPushButton::clicked, &mEditor, &CreateClassEditor::setLibraryBaseNameFromNamespace);
+  connect(mUi.pbLibraryNameFromNamespace, &QPushButton::clicked, this, &MainWindow::setLibraryBaseNameFromNamespace);
   connect(&mEditor, &CreateClassEditor::libraryBaseNameGenerated, mUi.libraryBaseNameEdit, &QLineEdit::setText);
 
   connect(mUi.sourceRootDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setSourceFilesRootDirectoryAbsolutePath);
@@ -185,13 +203,19 @@ void MainWindow::displaySuccessMessage(const Class & c, const CreateClassRespons
   msgBox.exec();
 }
 
-void MainWindow::displayErrorMessage(const Class & c, const QRuntimeError & error) noexcept
+void MainWindow::displayErrorMessage(const QRuntimeError & error) noexcept
 {
+  QString text;
+  if( mEditor.hasValidClass() ){
+    text = tr("Failed to create class %1: %2")
+           .arg( mEditor.validClass().name().toString(), error.text() );
+  }else{
+    text = tr("Failed to create a class: %1")
+           .arg( error.text() );
+  }
+
   QMessageBox msgBox(this);
-  msgBox.setText(
-    tr("Failed to create class %1: %2")
-    .arg( c.name().toString(), error.text() )
-  );
+  msgBox.setText(text);
   msgBox.setIcon(QMessageBox::Critical);
 
   msgBox.exec();

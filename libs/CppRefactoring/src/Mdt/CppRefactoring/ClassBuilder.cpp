@@ -11,6 +11,7 @@
 #include "TopCommentBloc.h"
 #include "LibraryExport.h"
 #include "TestBuilder.h"
+#include "ClassValidation.h"
 
 namespace Mdt{ namespace CppRefactoring{
 
@@ -21,14 +22,21 @@ ClassBuilder::ClassBuilder(QObject *parent) noexcept
 
 ClassName ClassBuilder::makeClassName(const QString & name)
 {
-  /// \todo validation
+  ClassValidation::validateClassNameString(name);
 
   return ClassName::fromString(name);
 }
 
+Namespace ClassBuilder::makeNamespaceFromColonSeparatedString(const QString & str)
+{
+  ClassValidation::validateNamespaceColonSeparatedString(str);
+
+  return Namespace::fromColonSeparatedString(str);
+}
+
 Class ClassBuilder::makeClass(const ClassEditorData & editorData)
 {
-  /// \todo validation
+  ClassValidation::validateEditorData(editorData);
 
   ClassName name = makeClassName(editorData.className);
 
@@ -36,7 +44,7 @@ Class ClassBuilder::makeClass(const ClassEditorData & editorData)
 
   QString nsStr = editorData.namespaceStr.trimmed();
   if( !nsStr.isEmpty() ){
-    c.setNamespace( Namespace::fromColonSeparatedString(nsStr) );
+    c.setNamespace( makeNamespaceFromColonSeparatedString(nsStr) );
   }
 
   const QString topCommentBloc = editorData.topCommentBloc.trimmed();

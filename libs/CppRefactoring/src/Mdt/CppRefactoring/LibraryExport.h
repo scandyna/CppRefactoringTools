@@ -42,9 +42,15 @@ namespace Mdt{ namespace CppRefactoring{
      */
     QString toUsageMacroString() const noexcept;
 
+    /*! \brief Check if given name is valid for a library base name
+     */
+    static
+    bool isValidLibraryBaseName(const QString & name) noexcept;
+
     /*! \brief Make an export from given library base name
      *
-     * \pre \a name must not be empty
+     * \pre \a name must not be valid
+     * \sa isValidLibraryBaseName()
      * \sa libraryBaseName()
      */
     static

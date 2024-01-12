@@ -58,9 +58,9 @@ void CreateClassEditor::setLibraryBaseName(const QString& name) noexcept
 }
 
 /// \todo Really just a sandbox
-void CreateClassEditor::setLibraryBaseNameFromNamespace() noexcept
+void CreateClassEditor::setLibraryBaseNameFromNamespace()
 {
-  auto ns = Namespace::fromColonSeparatedString(mEditorData.namespaceStr);
+  Namespace ns = ClassBuilder::makeNamespaceFromColonSeparatedString(mEditorData.namespaceStr);
 
   mEditorData.libraryBaseName = ns.partList().join( QLatin1Char('_') );
 

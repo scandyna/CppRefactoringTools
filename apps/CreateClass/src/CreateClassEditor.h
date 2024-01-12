@@ -13,6 +13,7 @@
 #include "EditorViewModel.h"
 #include "Mdt/CppRefactoring/ClassEditorData.h"
 #include "Mdt/CppRefactoring/Class.h"
+#include "Mdt/CppRefactoring/ClassValidationError.h"
 #include "Mdt/CppRefactoring/TestFrameworkType.h"
 #include "Mdt/CppRefactoring/FileSystemEditorData.h"
 #include "Mdt/CppRefactoring/FileSystemStructure.h"
@@ -78,8 +79,10 @@ class CreateClassEditor : public QObject
   void setLibraryBaseName(const QString & name) noexcept;
 
   /*! \brief Set the library base name from namespace
+   *
+   * \exception ClassValidationError
    */
-  void setLibraryBaseNameFromNamespace() noexcept;
+  void setLibraryBaseNameFromNamespace();
 
   /*! \brief Set the test framework to use
    */

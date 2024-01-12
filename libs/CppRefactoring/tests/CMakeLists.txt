@@ -181,11 +181,27 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME ClassValidationTest
+  TARGET classValidationTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/ClassValidationTest.cpp
+)
+
+mdt_add_test(
   NAME ClassBuilderTest
   TARGET classBuilderTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
   SOURCE_FILES
     src/ClassBuilderTest.cpp
+)
+
+mdt_add_test(
+  NAME ClassBuilderErrorTest
+  TARGET classBuilderErrorTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/ClassBuilderErrorTest.cpp
 )
 
 mdt_add_test(

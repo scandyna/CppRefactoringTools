@@ -12,6 +12,7 @@
 
 #include "Mdt/CppRefactoring/Class.h"
 #include "Mdt/CppRefactoring/ClassEditorData.h"
+#include "Mdt/CppRefactoring/ClassValidationError.h"
 #include "Mdt/CppRefactoring/Namespace.h"
 #include "Mdt/CppRefactoring/ClassFileSystemStructure.h"
 #include "mdt_cpprefactoring_export.h"
@@ -21,6 +22,8 @@
 namespace Mdt{ namespace CppRefactoring{
 
   /*! \brief Class builder
+   *
+   * \sa ClassValidation
    */
   class MDT_CPPREFACTORING_EXPORT ClassBuilder : public QObject
   {
@@ -35,14 +38,21 @@ namespace Mdt{ namespace CppRefactoring{
 
     /*! \brief Make a class name
      *
-     * \todo define exceptions
+     * \exception ClassValidationError
      */
     static
     ClassName makeClassName(const QString & name);
 
+    /*! \brief Make a namespace from given colon separated string
+     *
+     * \exception ClassValidationError
+     */
+    static
+    Namespace makeNamespaceFromColonSeparatedString(const QString & str);
+
     /*! \brief Make a class from given editor data
      *
-     * \todo define exceptions
+     * \exception ClassValidationError
      */
     static
     Class makeClass(const ClassEditorData & editorData);

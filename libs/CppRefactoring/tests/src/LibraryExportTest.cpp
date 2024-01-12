@@ -15,6 +15,24 @@
 using namespace Mdt::CppRefactoring;
 
 
+TEST_CASE("isValidLibraryBaseName")
+{
+  SECTION("empty string is not valid")
+  {
+    REQUIRE( !LibraryExport::isValidLibraryBaseName("") );
+  }
+
+  SECTION("only spaces is not valid")
+  {
+    REQUIRE( !LibraryExport::isValidLibraryBaseName("   ") );
+  }
+
+  SECTION("Mdt_CppRefactoring is valid")
+  {
+    REQUIRE( LibraryExport::isValidLibraryBaseName("Mdt_CppRefactoring") );
+  }
+}
+
 TEST_CASE("fromLibraryName")
 {
   auto libraryExport = LibraryExport::fromLibraryBaseName("Mdt_CppRefactoring");

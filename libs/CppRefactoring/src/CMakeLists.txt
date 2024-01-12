@@ -29,6 +29,8 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/TestBuilder.cpp
   Mdt/CppRefactoring/TestSourceFileContent.cpp
   Mdt/CppRefactoring/Class.cpp
+  Mdt/CppRefactoring/ClassValidationError.cpp
+  Mdt/CppRefactoring/ClassValidation.cpp
   Mdt/CppRefactoring/ClassBuilder.cpp
   Mdt/CppRefactoring/FileSystemHelpers.cpp
   Mdt/CppRefactoring/SourceFilesRootDirectory.cpp

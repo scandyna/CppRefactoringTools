@@ -49,6 +49,8 @@ class MainWindow : public QMainWindow
 
  private slots:
 
+  void setLibraryBaseNameFromNamespace() noexcept;
+  void refresh() noexcept;
   void createClass() noexcept;
 
  private:
@@ -57,7 +59,7 @@ class MainWindow : public QMainWindow
 
   bool askConfirmationToOverwriteFile(const Mdt::CppRefactoring::CreateClassResponse & response) noexcept;
   void displaySuccessMessage(const Mdt::CppRefactoring::Class & c, const Mdt::CppRefactoring::CreateClassResponse & resonse) noexcept;
-  void displayErrorMessage(const Mdt::CppRefactoring::Class & c, const Mdt::CppRefactoring::QRuntimeError & error) noexcept;
+  void displayErrorMessage(const Mdt::CppRefactoring::QRuntimeError & error) noexcept;
 
   static
   QString getFilePathListFromResponse(const Mdt::CppRefactoring::CreateClassResponse & response) noexcept;

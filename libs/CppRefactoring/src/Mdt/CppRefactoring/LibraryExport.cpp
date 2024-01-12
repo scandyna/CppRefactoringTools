@@ -26,12 +26,22 @@ QString LibraryExport::toUsageMacroString() const noexcept
   return mLibraryBaseName.toUpper() % QLatin1String("_EXPORT");
 }
 
-LibraryExport LibraryExport::fromLibraryBaseName(const QString & name) noexcept
+bool LibraryExport::isValidLibraryBaseName(const QString & name) noexcept
 {
   QString bName = name.trimmed();
-  assert( !bName.isEmpty() );
 
-  return LibraryExport(bName);
+  if( bName.isEmpty() ){
+    return false;
+  }
+
+  return true;
+}
+
+LibraryExport LibraryExport::fromLibraryBaseName(const QString & name) noexcept
+{
+  assert( isValidLibraryBaseName(name) );
+
+  return LibraryExport( name.trimmed() );
 }
 
 LibraryExport::LibraryExport(const QString & libraryBaseName) noexcept
