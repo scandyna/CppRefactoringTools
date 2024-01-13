@@ -14,6 +14,9 @@
 #include <QLatin1Char>
 #include <QLatin1String>
 #include <QStringBuilder>
+#include <QFileDialog>
+#include <QStringList>
+#include <cassert>
 
 using namespace Mdt::CppRefactoring;
 
@@ -74,7 +77,7 @@ void MainWindow::updateTestSourceFileContentUi(const TestSourceFileContent & con
 void MainWindow::updateFileSystemStructureUi(const EditorViewModel & model) noexcept
 {
   mUi.sourceRootDirectoryPathEdit->setText( model.sourceFilesRootDirectoryAbsolutePath() );
-  mUi.TestDirectoryPathEdit->setText( model.testSourceFilesDirectoryAbsolutePath() );
+  mUi.testDirectoryPathEdit->setText( model.testSourceFilesDirectoryAbsolutePath() );
   mUi.headerFilePathEdit->setText( model.getHeaderFileAbsolutePath() );
   mUi.sourceFilePathEdit->setText( model.getSourceFileAbsolutePath() );
   mUi.textSourceFilePathEdit->setText( model.getTestSourceFileAbsolutePath() );
@@ -87,6 +90,48 @@ void MainWindow::setLibraryBaseNameFromNamespace() noexcept
   }catch(const QRuntimeError & error){
     displayErrorMessage(error);
   }
+}
+
+void MainWindow::selectSourceFilesRootDirectory() noexcept
+{
+  QString path = mUi.sourceRootDirectoryPathEdit->text().trimmed();
+
+  QFileDialog dialog(this);
+  dialog.setFileMode(QFileDialog::Directory);
+  if( !path.isEmpty() ){
+    dialog.setDirectory(path);
+  }
+
+  if(dialog.exec() != QDialog::Accepted){
+    return;
+  }
+
+  const QStringList entries = dialog.selectedFiles();
+  assert(entries.size() == 1);
+  path = entries.at(0);
+  mUi.sourceRootDirectoryPathEdit->setText(path);
+  mEditor.setSourceFilesRootDirectoryAbsolutePath(path);
+}
+
+void MainWindow::selectTestSourceFilesDirectory() noexcept
+{
+  QString path = mUi.testDirectoryPathEdit->text().trimmed();
+
+  QFileDialog dialog(this);
+  dialog.setFileMode(QFileDialog::Directory);
+  if( !path.isEmpty() ){
+    dialog.setDirectory(path);
+  }
+
+  if(dialog.exec() != QDialog::Accepted){
+    return;
+  }
+
+  const QStringList entries = dialog.selectedFiles();
+  assert(entries.size() == 1);
+  path = entries.at(0);
+  mUi.testDirectoryPathEdit->setText(path);
+  mEditor.setTestSourceFilesDirectoryAbsolutePath(path);
 }
 
 void MainWindow::refresh() noexcept
@@ -133,10 +178,12 @@ void MainWindow::setupEditorUi() noexcept
   connect(mUi.cbUseLibraryExport, &QCheckBox::toggled, &mEditor, &CreateClassEditor::setUseLibraryExport);
   connect(mUi.libraryBaseNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setLibraryBaseName);
   connect(mUi.pbLibraryNameFromNamespace, &QPushButton::clicked, this, &MainWindow::setLibraryBaseNameFromNamespace);
+  connect(mUi.pbSelectSourceRootDirectory, &QToolButton::clicked, this, &MainWindow::selectSourceFilesRootDirectory);
+  connect(mUi.pbSelectTestDirectory, &QToolButton::clicked, this, &MainWindow::selectTestSourceFilesDirectory);
   connect(&mEditor, &CreateClassEditor::libraryBaseNameGenerated, mUi.libraryBaseNameEdit, &QLineEdit::setText);
 
   connect(mUi.sourceRootDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setSourceFilesRootDirectoryAbsolutePath);
-  connect(mUi.TestDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath);
+  connect(mUi.testDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath);
   connect(&mEditor, &CreateClassEditor::fileSystemStructureUpdated, this, &MainWindow::updateFileSystemStructureUi);
 
   mEditor.setTopCommentBloc(

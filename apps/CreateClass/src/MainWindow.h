@@ -50,6 +50,8 @@ class MainWindow : public QMainWindow
  private slots:
 
   void setLibraryBaseNameFromNamespace() noexcept;
+  void selectSourceFilesRootDirectory() noexcept;
+  void selectTestSourceFilesDirectory() noexcept;
   void refresh() noexcept;
   void createClass() noexcept;
 
