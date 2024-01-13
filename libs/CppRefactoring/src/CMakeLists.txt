@@ -37,6 +37,8 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/TestSourceFilesDirectory.cpp
   Mdt/CppRefactoring/FileSystemEditorData.cpp
   Mdt/CppRefactoring/FileSystemStructure.cpp
+  Mdt/CppRefactoring/FileSystemValidationError.cpp
+  Mdt/CppRefactoring/FileSystemValidation.cpp
   Mdt/CppRefactoring/FileSystemBuilder.cpp
   Mdt/CppRefactoring/ClassFileSystemStructure.cpp
   Mdt/CppRefactoring/FileOverwriteBehavior.cpp

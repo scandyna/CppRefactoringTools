@@ -10,12 +10,14 @@
 #include "FileSystemBuilder.h"
 #include "SourceFilesRootDirectory.h"
 #include "TestSourceFilesDirectory.h"
+#include "FileSystemValidation.h"
 
 namespace Mdt{ namespace CppRefactoring{
 
 FileSystemStructure FileSystemBuilder::makeStructure(const FileSystemEditorData & data)
 {
-  /// \todo validation
+  FileSystemValidation::validateSourceFilesRootDirectoryPath(data.sourceFilesRootDirectoryAbsolutePath);
+  FileSystemValidation::validateTestSourceFilesRootDirectoryPath(data.testSourceFilesDirectoryAbsolutePath);
 
   auto sourcesDir = SourceFilesRootDirectory::fromExistingPath(data.sourceFilesRootDirectoryAbsolutePath);
   auto testSourcesDir = TestSourceFilesDirectory::fromExistingPath(data.testSourceFilesDirectoryAbsolutePath);

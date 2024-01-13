@@ -92,7 +92,6 @@ void CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath(const QString& p
   mFileSystemEditorData.testSourceFilesDirectoryAbsolutePath = path;
 }
 
-
 void CreateClassEditor::refresh()
 {
   EditorViewModel viewModel;
@@ -106,9 +105,10 @@ void CreateClassEditor::refresh()
   if( mFileSystemEditorData.seemsComplete() ){
     mFileSystemStructure = FileSystemBuilder::makeStructure(mFileSystemEditorData);
     viewModel.setFileSystemStructure(*mFileSystemStructure);
+    emit fileSystemStructureUpdated(viewModel);
+  }else{
+    mFileSystemStructure.reset();
   }
-
-  emit fileSystemStructureUpdated(viewModel);
 }
 
 CreateClassResponse CreateClassEditor::createClass(CreateClassFileOverwriteBehavior overwriteBehavior)
@@ -116,7 +116,11 @@ CreateClassResponse CreateClassEditor::createClass(CreateClassFileOverwriteBehav
   refresh();
 
   assert( mClass.has_value() );
-  assert( mFileSystemStructure.has_value() );
+
+  if( !mFileSystemStructure.has_value() ){
+    QString msg = tr("missing informations: source files, test files root directories");
+    throw FileSystemValidationError(msg);
+  }
 
   CreateClassRequest request{*mClass, *mFileSystemStructure, overwriteBehavior};
   CreateClass useCase;

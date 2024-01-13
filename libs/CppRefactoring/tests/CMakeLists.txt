@@ -245,11 +245,27 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME FileSystemValidationTest
+  TARGET fileSystemValidationTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileSystemValidationTest.cpp
+)
+
+mdt_add_test(
   NAME FileSystemBuilderTest
   TARGET fileSystemBuilderTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
   SOURCE_FILES
     src/FileSystemBuilderTest.cpp
+)
+
+mdt_add_test(
+  NAME FileSystemBuilderErrorTest
+  TARGET fileSystemBuilderErrorTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/FileSystemBuilderErrorTest.cpp
 )
 
 mdt_add_test(

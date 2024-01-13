@@ -12,6 +12,7 @@
 
 #include "Mdt/CppRefactoring/FileSystemEditorData.h"
 #include "Mdt/CppRefactoring/FileSystemStructure.h"
+#include "Mdt/CppRefactoring/FileSystemValidationError.h"
 #include "mdt_cpprefactoring_export.h"
 
 namespace Mdt{ namespace CppRefactoring{
@@ -24,7 +25,7 @@ namespace Mdt{ namespace CppRefactoring{
 
     /*! \brief Make a file system structure
      *
-     * \todo define and implement exceptions
+     * \exception FileSystemValidationError
      */
     static
     FileSystemStructure makeStructure(const FileSystemEditorData & data);

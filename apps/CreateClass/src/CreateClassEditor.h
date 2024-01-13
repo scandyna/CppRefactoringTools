@@ -17,6 +17,7 @@
 #include "Mdt/CppRefactoring/TestFrameworkType.h"
 #include "Mdt/CppRefactoring/FileSystemEditorData.h"
 #include "Mdt/CppRefactoring/FileSystemStructure.h"
+#include "Mdt/CppRefactoring/FileSystemValidationError.h"
 
 #include "Mdt/CppRefactoring/CreateClass.h"
 /// #include "Mdt/CppRefactoring/CreateClassRequest.h"
@@ -106,13 +107,15 @@ class CreateClassEditor : public QObject
 
   /*! \brief Refresh
    *
-   * \todo define exceptions
+   * \exception ClassValidationError
+   * \exception FileSystemValidationError
    */
   void refresh();
 
   /*! \brief Create the class
    *
-   * \todo define exceptions
+   * \exception ClassValidationError
+   * \exception FileSystemValidationError
    */
   Mdt::CppRefactoring::CreateClassResponse createClass(Mdt::CppRefactoring::CreateClassFileOverwriteBehavior overwriteBehavior);
 

@@ -127,6 +127,30 @@ TEST_CASE("setTestSourceFilesDirectoryAbsolutePath")
   REQUIRE( editor.fileSystemEditorData().testSourceFilesDirectoryAbsolutePath == "/tmp/project/tests/src" );
 }
 
+TEST_CASE("refersh_shouldNotErase_partialFileSystemData")
+{
+  CreateClassEditor editor;
+  editor.setClassName("MyClass");
+
+  SECTION("set only source files directory")
+  {
+    editor.setSourceFilesRootDirectoryAbsolutePath("/tmp/project/src");
+
+    editor.refresh();
+
+    REQUIRE( editor.fileSystemEditorData().sourceFilesRootDirectoryAbsolutePath == "/tmp/project/src" );
+  }
+
+  SECTION("set only test source files directory")
+  {
+    editor.setTestSourceFilesDirectoryAbsolutePath("/tmp/project/tests/src");
+
+    editor.refresh();
+
+    REQUIRE( editor.fileSystemEditorData().testSourceFilesDirectoryAbsolutePath == "/tmp/project/tests/src" );
+  }
+}
+
 TEST_CASE("createClass")
 {
   QTemporaryDir sourceRootDir;
