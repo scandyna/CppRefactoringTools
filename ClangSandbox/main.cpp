@@ -34,18 +34,6 @@
 using namespace clang::tooling;
 using namespace llvm;
 
-// Apply a custom category to all command-line options so that they are the
-// only ones displayed.
-// static llvm::cl::OptionCategory myToolCategory("my-tool options");
-
-// CommonOptionsParser declares HelpMessage with a description of the common
-// command-line options related to the compilation database and input files.
-// It's nice to have this help message in all tools.
-// static llvm::cl::extrahelp commonHelp(CommonOptionsParser::HelpMessage);
-
-// A help message for this specific tool can be added afterwards.
-// static llvm::cl::extrahelp moreHelp("\nMore help text...\n");
-
 /// See https://clang.llvm.org/docs/LibASTMatchers.html
 
 using namespace clang::ast_matchers;
@@ -191,27 +179,17 @@ std::string projectBuildDir()
 
 int main(int argc, const char **argv)
 {
-  // llvm::cl::OptionCategory myToolCategory("my-tool options");
-  // CommonOptionsParser optionsParser(argc, argv, myToolCategory);
-  
-  // sandbox();
-  // return 0;
-  
-  // clang::tooling::runToolOnCode(std::make_unique<FindNamedClassAction>(), argv[1]);
-  
   std::vector<std::string> sourceFiles{sandboxSourceFilePath()};
   std::string errorMessage;
-  
+
   /// \todo see file:///usr/share/doc/cmake-data/html/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html
   auto compilationDatabase = clang::tooling::CompilationDatabase::loadFromDirectory(projectBuildDir(), errorMessage);
-  
   if(!compilationDatabase){
     qDebug() << "error loading compilation database: " << QString::fromStdString(errorMessage);
     return -1;
   }
 
   ClangTool tool(*compilationDatabase, sourceFiles);
-
 
   qDebug() << "------------------- Dump classes -----------------------";
   int result1 = dumpClasses(tool);
@@ -220,17 +198,4 @@ int main(int argc, const char **argv)
   int result2 = matcherSandbox(tool);
 
   return result1 + result2;
-
-  // return dumpAST(tool);
-
-  // return tool.run( std::make_unique<FindNamedClassAction>() );
-  // return tool.run( newFrontendActionFactory<FindNamedClassAction>().get() );
-  // return tool.run( newFrontendActionFactory<clang::SyntaxOnlyAction>().get() );
 }
-
-// #include <clang/Tooling/Tooling.h>
-// 
-// int main(int argc, char **argv)
-// {
-// 
-// }

@@ -42,6 +42,7 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 option(BUILD_APPS "Build the applications (tools)" OFF)
 option(BUILD_TESTS "Build the tests" OFF)
 option(BUILD_BENCHMARKS "Build the benchmarks" OFF)
+option(WITH_LIB_CLANG_SUPPORT "Build tools depending on Clang libraries (very experimental, may also break using Conan ?)" OFF)
 option(BUILD_DOCS "Build the documentations" OFF)
 mdt_set_available_build_types(Release Debug RelWithDebInfo MinSizeRel Instrumented)
 option(WARNING_AS_ERROR "Treat warnings as errors" OFF)
@@ -151,6 +152,23 @@ if(BUILD_BENCHMARKS)
   find_package(Qt5 REQUIRED COMPONENTS Test)
 endif()
 
+# TODO look https://llvm.org/docs/CMakePrimer.html AND  AND KDevelop source
+#   Also, not in Conan...
+
+# TODO: we should probably give some paths if we have multiple versions of LLVM installed
+# On my Ubuntu 18.04, system wide installed LLVM 10 ws choosed.
+# Mybe try a Conan package: https://github.com/conan-io/conan-center-index/issues/683
+if(WITH_LIB_CLANG_SUPPORT)
+  find_package(Clang REQUIRED CONFIG)
+  message("CLANG_INCLUDE_DIRS: ${CLANG_INCLUDE_DIRS}")
+  message("CLANG_DEFINITIONS: ${CLANG_DEFINITIONS}")
+  message("CLANG_LIBRARIES: ${CLANG_LIBRARIES}")
+  find_package(LLVM REQUIRED CONFIG)
+  message("LLVM_INCLUDE_DIRS: ${LLVM_INCLUDE_DIRS}")
+  message("LLVM_DEFINITIONS: ${LLVM_DEFINITIONS}")
+  message("LLVM_LIBRARIES: ${LLVM_LIBRARIES}")
+endif()
+
 if(BUILD_DOCS)
   include(FindDoxygen)
   find_package(Doxygen REQUIRED dot)
@@ -242,6 +260,10 @@ add_subdirectory(libs)
 
 if(BUILD_APPS)
   add_subdirectory(apps)
+endif()
+
+if(WITH_LIB_CLANG_SUPPORT)
+  add_subdirectory(ClangSandbox)
 endif()
 
 if(BUILD_DOCS)
