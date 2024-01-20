@@ -10,8 +10,21 @@
 #include "catch2/catch.hpp"
 #include "Catch2QString.h"
 #include "Mdt/CppRefactoring/ClassBuilder.h"
+#include <QTemporaryFile>
+#include <QTextStream>
+#include <cassert>
 
 using namespace Mdt::CppRefactoring;
+
+void writeTopCommentBlocFile(QTemporaryFile & file)
+{
+  assert( file.isOpen() );
+
+  QTextStream s(&file);
+  s << "// Top";
+
+  file.close();
+}
 
 
 TEST_CASE("makeClassName")
@@ -56,12 +69,18 @@ TEST_CASE("makeClass")
 
   SECTION("Top comment bloc")
   {
+    QTemporaryFile file;
+    REQUIRE( file.open() );
+    writeTopCommentBlocFile(file);
+
     data.className = "MyClass";
-    data.topCommentBloc = "// Top";
+    data.topCommentBlocTemplateFilePath = file.fileName();
 
     Class c = ClassBuilder::makeClass(data);
 
+    REQUIRE( c.hasTopCommentBloc() );
     REQUIRE( c.headerFileContent().hasTopCommentBloc() );
+    REQUIRE( c.topCommentBloc().toString() == "// Top" );
   }
 
   SECTION("library export")

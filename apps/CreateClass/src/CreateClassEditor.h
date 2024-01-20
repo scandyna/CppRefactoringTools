@@ -67,9 +67,9 @@ class CreateClassEditor : public QObject
    */
   void setNamespace(const QString & ns);
 
-  /*! \brief Set the top comment bloc
+  /*! \brief Set the path to the top comment bloc template file
    */
-  void setTopCommentBloc(const QString & bloc);
+  void setTopCommentBlocTemplateFilePath(const QString & path);
 
   /*! \brief Set use library export
    */

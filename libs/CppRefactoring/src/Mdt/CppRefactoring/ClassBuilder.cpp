@@ -9,6 +9,7 @@
  *****************************************************************************************/
 #include "ClassBuilder.h"
 #include "TopCommentBloc.h"
+#include "TopCommentBlocFileReader.h"
 #include "LibraryExport.h"
 #include "TestBuilder.h"
 #include "ClassValidation.h"
@@ -47,9 +48,9 @@ Class ClassBuilder::makeClass(const ClassEditorData & editorData)
     c.setNamespace( makeNamespaceFromColonSeparatedString(nsStr) );
   }
 
-  const QString topCommentBloc = editorData.topCommentBloc.trimmed();
-  if( !topCommentBloc.isEmpty() ){
-    c.setTopCommentBloc( TopCommentBloc::fromString(topCommentBloc) );
+  const QString topCommentBlocTemplateFilePath = editorData.topCommentBlocTemplateFilePath.trimmed();
+  if( !topCommentBlocTemplateFilePath.isEmpty() ){
+    c.setTopCommentBloc( TopCommentBlocFileReader::fromTemplateFile(topCommentBlocTemplateFilePath) );
   }
 
   if(editorData.useLibraryExport){

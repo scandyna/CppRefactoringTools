@@ -28,7 +28,7 @@ namespace Mdt{ namespace CppRefactoring{
   {
     QString className;
     QString namespaceStr;
-    QString topCommentBloc;
+    QString topCommentBlocTemplateFilePath;
     bool useLibraryExport = false;
     QString libraryBaseName;
     TestFrameworkEditorData testFrameworkData;

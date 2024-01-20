@@ -4,7 +4,7 @@
  ** MdtCppRefactoringTools
  ** Tools to help C++ refactoring.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2024 Philippe Steinmann.
  **
  *****************************************************************************************/
 #ifndef MDT_CPP_REFACTORING_TOP_COMMENT_BLOC_H

@@ -93,13 +93,20 @@
     <item row="1" column="0" colspan="2">
      <layout class="QFormLayout" name="formLayout_4">
       <item row="0" column="0">
+       <widget class="QLabel" name="topCommentBlocTemplateFileLabel">
+        <property name="text">
+         <string>Top comment bloc template file</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QLabel" name="sourceRootDirectoryPathLabel">
         <property name="text">
          <string>Sources root path</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLineEdit" name="sourceRootDirectoryPathEdit"/>
@@ -113,20 +120,34 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="TestDirectoryPathLabel">
         <property name="text">
          <string>Tests path:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLineEdit" name="testDirectoryPathEdit"/>
         </item>
         <item>
          <widget class="QToolButton" name="pbSelectTestDirectory">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLineEdit" name="topCommentBlocTemplateFileEdit"/>
+        </item>
+        <item>
+         <widget class="QToolButton" name="selectTopCommentBlocTemplateFile">
           <property name="text">
            <string>...</string>
           </property>

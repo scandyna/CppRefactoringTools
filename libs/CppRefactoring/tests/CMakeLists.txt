@@ -109,6 +109,22 @@ mdt_add_test(
 )
 
 mdt_add_test(
+  NAME TopCommentBlocFileReaderTest
+  TARGET topCommentBlocFileReaderTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TopCommentBlocFileReaderTest.cpp
+)
+
+mdt_add_test(
+  NAME TopCommentBlocFileReaderErrorTest
+  TARGET topCommentBlocFileReaderErrorTest
+  DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt
+  SOURCE_FILES
+    src/TopCommentBlocFileReaderErrorTest.cpp
+)
+
+mdt_add_test(
   NAME IncludeGuardTest
   TARGET includeGuardTest
   DEPENDENCIES Mdt::CppRefactoring Mdt::Catch2Main Mdt::Catch2Qt

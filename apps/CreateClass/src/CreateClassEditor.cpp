@@ -42,9 +42,9 @@ void CreateClassEditor::setNamespace(const QString& ns)
   mEditorData.namespaceStr = ns;
 }
 
-void CreateClassEditor::setTopCommentBloc(const QString& bloc)
+void CreateClassEditor::setTopCommentBlocTemplateFilePath(const QString& path)
 {
-  mEditorData.topCommentBloc = bloc;
+  mEditorData.topCommentBlocTemplateFilePath = path;
 }
 
 void CreateClassEditor::setUseLibraryExport(bool use) noexcept

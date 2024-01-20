@@ -95,6 +95,25 @@ namespace Mdt{ namespace CppRefactoring{
      */
     void setTopCommentBloc(const TopCommentBloc & bloc) noexcept;
 
+    /*! \brief Check if this class has a top comment bloc
+     */
+    bool hasTopCommentBloc() const noexcept
+    {
+      return mTopCommentBloc.has_value();
+    }
+
+    /*! \brief Get the top comment bloc
+     *
+     * \pre this class must have a top comment bloc
+     * \sa hasTopCommentBloc()
+     */
+    const TopCommentBloc & topCommentBloc() const noexcept
+    {
+      assert( hasTopCommentBloc() );
+
+      return *mTopCommentBloc;
+    }
+
     /*! \brief Set the library export
      */
     void setLibraryExport(const LibraryExport & libraryExport) noexcept;

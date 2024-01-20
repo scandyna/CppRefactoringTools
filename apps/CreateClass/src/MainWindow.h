@@ -4,7 +4,7 @@
  ** MdtCppRefactoringTools
  ** Tools to help C++ refactoring.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2024 Philippe Steinmann.
  **
  *****************************************************************************************/
 #ifndef MAIN_WINDOW_H
@@ -50,6 +50,7 @@ class MainWindow : public QMainWindow
  private slots:
 
   void setLibraryBaseNameFromNamespace() noexcept;
+  void selectTopCommentBlocTemplateFile() noexcept;
   void selectSourceFilesRootDirectory() noexcept;
   void selectTestSourceFilesDirectory() noexcept;
   void refresh() noexcept;

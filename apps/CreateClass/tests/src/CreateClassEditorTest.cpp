@@ -46,13 +46,13 @@ TEST_CASE("setNamespace")
   REQUIRE( editor.editorData().namespaceStr == "Mdt" );
 }
 
-TEST_CASE("setTopCommentBloc")
+TEST_CASE("setTopCommentBlocTemplateFilePath")
 {
   CreateClassEditor editor;
 
-  editor.setTopCommentBloc("// Top");
+  editor.setTopCommentBlocTemplateFilePath("/path/to/file.txt");
 
-  REQUIRE( editor.editorData().topCommentBloc == "// Top" );
+  REQUIRE( editor.editorData().topCommentBlocTemplateFilePath == "/path/to/file.txt" );
 }
 
 TEST_CASE("setUseLibraryExport")

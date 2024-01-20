@@ -16,6 +16,8 @@ add_library(Mdt_CppRefactoring
   Mdt/CppRefactoring/SourceFileName.cpp
   Mdt/CppRefactoring/TestSourceFileName.cpp
   Mdt/CppRefactoring/TopCommentBloc.cpp
+  Mdt/CppRefactoring/TopCommentBlocFileReader.cpp
+  Mdt/CppRefactoring/TopCommentBlocFileReadError.cpp
   Mdt/CppRefactoring/IncludeGuard.cpp
   Mdt/CppRefactoring/LibraryExport.cpp
   Mdt/CppRefactoring/IncludeStatement.cpp

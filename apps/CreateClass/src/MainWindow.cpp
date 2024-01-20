@@ -4,7 +4,7 @@
  ** MdtCppRefactoringTools
  ** Tools to help C++ refactoring.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2024 Philippe Steinmann.
  **
  *****************************************************************************************/
 #include "MainWindow.h"
@@ -15,6 +15,7 @@
 #include <QLatin1String>
 #include <QStringBuilder>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QStringList>
 #include <cassert>
 
@@ -90,6 +91,28 @@ void MainWindow::setLibraryBaseNameFromNamespace() noexcept
   }catch(const QRuntimeError & error){
     displayErrorMessage(error);
   }
+}
+
+void MainWindow::selectTopCommentBlocTemplateFile() noexcept
+{
+  QString path = mUi.topCommentBlocTemplateFileEdit->text().trimmed();
+
+  QFileDialog dialog(this);
+  dialog.setFileMode(QFileDialog::ExistingFile);
+  dialog.setNameFilter(tr("Text files (*.txt)"));
+  if( !path.isEmpty() ){
+    dialog.setDirectory( QFileInfo(path).dir() );
+  }
+
+  if(dialog.exec() != QDialog::Accepted){
+    return;
+  }
+
+  const QStringList entries = dialog.selectedFiles();
+  assert(entries.size() == 1);
+  path = entries.at(0);
+  mUi.topCommentBlocTemplateFileEdit->setText(path);
+  mEditor.setTopCommentBlocTemplateFilePath(path);
 }
 
 void MainWindow::selectSourceFilesRootDirectory() noexcept
@@ -178,27 +201,16 @@ void MainWindow::setupEditorUi() noexcept
   connect(mUi.cbUseLibraryExport, &QCheckBox::toggled, &mEditor, &CreateClassEditor::setUseLibraryExport);
   connect(mUi.libraryBaseNameEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setLibraryBaseName);
   connect(mUi.pbLibraryNameFromNamespace, &QPushButton::clicked, this, &MainWindow::setLibraryBaseNameFromNamespace);
+  connect(mUi.selectTopCommentBlocTemplateFile, &QToolButton::clicked, this, &MainWindow::selectTopCommentBlocTemplateFile);
   connect(mUi.pbSelectSourceRootDirectory, &QToolButton::clicked, this, &MainWindow::selectSourceFilesRootDirectory);
   connect(mUi.pbSelectTestDirectory, &QToolButton::clicked, this, &MainWindow::selectTestSourceFilesDirectory);
   connect(&mEditor, &CreateClassEditor::libraryBaseNameGenerated, mUi.libraryBaseNameEdit, &QLineEdit::setText);
 
+  connect(mUi.topCommentBlocTemplateFileEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setTopCommentBlocTemplateFilePath);
   connect(mUi.sourceRootDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setSourceFilesRootDirectoryAbsolutePath);
   connect(mUi.testDirectoryPathEdit, &QLineEdit::textEdited, &mEditor, &CreateClassEditor::setTestSourceFilesDirectoryAbsolutePath);
   connect(&mEditor, &CreateClassEditor::fileSystemStructureUpdated, this, &MainWindow::updateFileSystemStructureUi);
 
-  mEditor.setTopCommentBloc(
-    QLatin1String(
-      "// SPDX-License-Identifier: LGPL-3.0-or-later\n"
-      "/****************************************************************************************\n"
-      "**\n"
-      "** MdtCppRefactoringTools\n"
-      "** Tools to help C++ refactoring.\n"
-      "**\n"
-      "** Copyright (C) 2024-2024 Philippe Steinmann.\n"
-      "**\n"
-      "*****************************************************************************************/"
-    )
-  );
   mEditor.setTestFrameworkType(TestFrameworkType::Catch2);
   mEditor.setTestSourceFileAdditionalIncludes({QLatin1String("Catch2QString.h")});
   // mEditor.setTestSourceFileAdditionalSystemIncludes({QLatin1String("cassert")});

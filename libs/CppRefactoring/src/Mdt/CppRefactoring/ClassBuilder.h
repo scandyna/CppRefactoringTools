@@ -53,6 +53,7 @@ namespace Mdt{ namespace CppRefactoring{
     /*! \brief Make a class from given editor data
      *
      * \exception ClassValidationError
+     * \exception TopCommentBlocFileReadError
      */
     static
     Class makeClass(const ClassEditorData & editorData);
