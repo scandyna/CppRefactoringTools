@@ -4,7 +4,7 @@
 ** MdtCppRefactoringTools
 ** Tools to help C++ refactoring.
 **
-** Copyright (C) 2024-2024 Philippe Steinmann.
+** Copyright (C) 2024-2026 Philippe Steinmann.
 **
 *****************************************************************************************/
 #include "Mdt/CppRefactoring/CreateClass.h"
@@ -63,9 +63,9 @@ TEST_CASE("execute")
 
   REQUIRE( response.isSuccess );
 
-  QFileInfo headerFile = response.headerFileAbsolutePath;
-  QFileInfo sourceFile = response.sourceFileAbsolutePath;
-  QFileInfo testSourceFile = response.testSourceFileAbsolutePath;
+  QFileInfo headerFile = QFileInfo(response.headerFileAbsolutePath);
+  QFileInfo sourceFile = QFileInfo(response.sourceFileAbsolutePath);
+  QFileInfo testSourceFile = QFileInfo(response.testSourceFileAbsolutePath);
 
   REQUIRE( headerFile.exists() );
   REQUIRE( headerFile.isFile() );

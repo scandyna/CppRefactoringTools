@@ -69,7 +69,7 @@ target_include_directories(Mdt_CppRefactoring
 
 target_link_libraries(Mdt_CppRefactoring
   PUBLIC
-    Qt5::Core
+    Qt6::Core
     # Mdt::Numeric
 #   PRIVATE
 #     Boost::boost

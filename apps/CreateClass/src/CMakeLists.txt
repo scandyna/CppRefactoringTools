@@ -50,7 +50,7 @@ target_compile_definitions(mdtcppcreateclass
 target_link_libraries(mdtcppcreateclass
   PRIVATE
     Mdt::CreateClass
-    Qt5::Widgets
+    Qt6::Widgets
 )
 
 if(BUILD_USE_IPO_LTO)

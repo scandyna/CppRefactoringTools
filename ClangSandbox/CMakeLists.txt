@@ -44,5 +44,5 @@ target_link_libraries(clangsandbox
     # LLVM::libTooling
     # LLVMSupport clangTooling
     clangTooling
-    Qt5::Core
+    Qt6::Core
 )

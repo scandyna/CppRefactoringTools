@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.25)
 
 # CMAKE_PREFIX_PATH is empty before any call to project()
 # Because set_project_version() does not exist,
@@ -132,10 +132,10 @@ endif()
 #######################
 
 find_package(Threads REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 
 if(BUILD_APPS)
-  find_package(Qt5 REQUIRED COMPONENTS Widgets Sql)
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Sql)
 endif()
 
 # For header only library,no component is defined.
@@ -144,12 +144,12 @@ endif()
 
 if(BUILD_TESTS)
   find_package(Catch2 REQUIRED)
-  find_package(Qt5 REQUIRED COMPONENTS Test)
+  find_package(Qt6 REQUIRED COMPONENTS Test)
 endif()
 
 if(BUILD_BENCHMARKS)
   find_package(Catch2 REQUIRED)
-  find_package(Qt5 REQUIRED COMPONENTS Test)
+  find_package(Qt6 REQUIRED COMPONENTS Test)
 endif()
 
 # TODO look https://llvm.org/docs/CMakePrimer.html AND  AND KDevelop source
@@ -225,7 +225,7 @@ include(MdtPackageConfigHelpers)
 # add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 
 # TODO: remove before migrate to Qt6
-add_compile_definitions(QT_NO_DEPRECATED_WARNINGS=1)
+# add_compile_definitions(QT_NO_DEPRECATED_WARNINGS=1)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)

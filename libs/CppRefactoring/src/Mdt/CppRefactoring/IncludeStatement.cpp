@@ -4,7 +4,7 @@
 ** MdtCppRefactoringTools
 ** Tools to help C++ refactoring.
 **
-** Copyright (C) 2023-2023 Philippe Steinmann.
+** Copyright (C) 2023-2026 Philippe Steinmann.
 **
 *****************************************************************************************/
 #include "IncludeStatement.h"
@@ -57,7 +57,7 @@ IncludeStatement IncludeStatement::from_q_char_sequence(const QString & sequence
   const QString cSequence = sequence.trimmed();
   assert( !cSequence.isEmpty() );
 
-  return fromFileInfo(cSequence);
+  return fromFileInfo( QFileInfo(cSequence) );
 }
 
 IncludeStatement IncludeStatement::systemIncludeFrom_h_char_sequence(const QString & sequence) noexcept
@@ -65,7 +65,7 @@ IncludeStatement IncludeStatement::systemIncludeFrom_h_char_sequence(const QStri
   const QString cSequence = sequence.trimmed();
   assert( !cSequence.isEmpty() );
 
-  IncludeStatement statement = fromFileInfo(cSequence);
+  IncludeStatement statement = fromFileInfo( QFileInfo(cSequence) );
   statement.setSystemInclude(true);
 
   return statement;

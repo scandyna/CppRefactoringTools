@@ -4,7 +4,7 @@
  ** MdtCppRefactoringTools
  ** Tools to help C++ refactoring.
  **
- ** Copyright (C) 2023-2023 Philippe Steinmann.
+ ** Copyright (C) 2023-2026 Philippe Steinmann.
  **
  *****************************************************************************************/
 #include "Namespace.h"
@@ -68,7 +68,7 @@ Namespace Namespace::fromColonSeparatedString(const QString& str) noexcept
 
   assert( isValidColonSeparatedString(nsStr) );
 
-  return Namespace( nsStr.split(QLatin1String("::"), QString::SkipEmptyParts, Qt::CaseSensitive) );
+  return Namespace( nsStr.split(QLatin1String("::"), Qt::SkipEmptyParts, Qt::CaseSensitive) );
 }
 
 Namespace::Namespace(const QStringList & partList) noexcept
