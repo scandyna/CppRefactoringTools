@@ -1,10 +1,12 @@
-from conans import ConanFile, tools
-import os
+from conan import ConanFile
+from conan.tools.env import VirtualBuildEnv
+from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
+
 
 # NOTE: this recipe is only to install dependnecies.
 #       to create packages, see packaging subfolder
 class MdtCppRefactoringToolsConan(ConanFile):
-  name = "MdtCppRefactoringTools"
+  name = "mdtcpprefactoringtools"
   #version = "0.1"
   license = "BSD 3-Clause"
   url = "https://gitlab.com/scandyna/cpprefactoringtools"
@@ -12,29 +14,20 @@ class MdtCppRefactoringToolsConan(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
   options = {"shared": [True, False]}
   default_options = {"shared": True}
-  generators = "CMakeDeps", "CMakeToolchain", "VirtualBuildEnv"
+  generators = "CMakeDeps", "VirtualBuildEnv"
 
   # See: https://docs.conan.io/en/latest/reference/conanfile/attributes.html#short-paths
   # Should only be enabled if building with MSVC on Windows causes problems
   #short_paths = False
 
   def requirements(self):
-    # Due to a issue using GitLab Conan repository,
-    # version ranges are not possible.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.requires("qt/5.15.6")
-    #self.requires("boost/1.72.0")
-    self.requires("MdtCMakeConfig/0.0.5@scandyna/testing")
+    self.requires("qt/6.8.3")
 
-  # When using --profile:build xx and --profile:host xx ,
-  # the dependencies declared in build_requires and tool_requires
-  # will not generate the required files.
-  # see:
-  # - https://github.com/conan-io/conan/issues/10272
-  # - https://github.com/conan-io/conan/issues/9951
   def build_requirements(self):
-    # Due to a issue using GitLab Conan repository,
-    # version ranges are not possible.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.tool_requires("catch2/2.13.9", force_host_context=True)
-    self.tool_requires("MdtCMakeModules/0.19.3@scandyna/testing", force_host_context=True)
+    self.test_requires("catch2/2.13.10")
+    self.test_requires("mdtcmakemodules/0.22.0@scandyna/testing")
+
+  def generate(self):
+    tc = CMakeToolchain(self)
+    #tc.variables["FROM_CONAN_PROJECT_VERSION"] = self.version
+    tc.generate()
